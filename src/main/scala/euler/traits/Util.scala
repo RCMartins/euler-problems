@@ -1,6 +1,6 @@
 package euler.traits
 
-import java.io.{BufferedReader, IOException, InputStreamReader}
+import java.io.{BufferedReader, File, IOException, InputStreamReader}
 import java.math.RoundingMode
 
 import scala.annotation.tailrec
@@ -23,8 +23,8 @@ trait Util {
     }
   }
 
-  def readFile(filePath: String): String = {
-    val source = scala.io.Source.fromFile(filePath)
+  def readData(filePath: String): String = {
+    val source = scala.io.Source.fromFile(new File("data", filePath))
     try source.mkString.trim
     finally source.close()
   }

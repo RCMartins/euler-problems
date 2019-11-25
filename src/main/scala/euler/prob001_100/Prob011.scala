@@ -1,4 +1,4 @@
-package euler.prob001_100.prob011
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -27,7 +27,7 @@ object Prob011 extends UtilResult {
 
   def calc: Long = {
     val data: Array[Array[Int]] =
-      readFile("data/p011_data.txt").split('\n').map(_.split(' ').map(_.toInt))
+      readData("p011_data.txt").split('\n').map(_.split(' ').map(_.toInt))
 
     val f = sumOf4(data) _
 

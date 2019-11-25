@@ -1,4 +1,4 @@
-package euler.prob001_100.prob016
+package euler.prob001_100
 
 import euler.traits.UtilResult
 

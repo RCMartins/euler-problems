@@ -1,4 +1,4 @@
-package euler.prob001_100.prob014
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -29,7 +29,6 @@ object Prob014 extends UtilResult {
       .map { elem =>
         val size = f(elem, 0)
         memory += elem -> size
-        println(elem + " => " + size)
         (size, elem)
       }
       .sortWith((a, b) => a._1 > b._1)

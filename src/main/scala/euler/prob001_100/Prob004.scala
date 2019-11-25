@@ -1,4 +1,4 @@
-package euler.prob001_100.prob004
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -6,9 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob004 extends UtilResult {
-
   def calc: Long = {
-
     val v = for {
       a <- 100 to 999
       b <- 100 to 999
@@ -18,5 +16,4 @@ object Prob004 extends UtilResult {
 
     v.max
   }
-
 }

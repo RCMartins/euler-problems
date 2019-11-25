@@ -1,4 +1,4 @@
-package euler.prob001_100.prob013
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -7,7 +7,7 @@ import euler.traits.UtilResult
   */
 object Prob013 extends UtilResult {
   def calc: Long = {
-    val data = readFile("data\\p013_data.txt").split('\n').map(BigInt(_))
+    val data = readData("p013_data.txt").split('\n').map(BigInt(_))
 
     data.sum.toString.substring(0, 10).toLong
   }

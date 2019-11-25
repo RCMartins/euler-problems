@@ -1,4 +1,4 @@
-package euler.prob001_100.prob020
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -8,7 +8,6 @@ import euler.traits.UtilResult
 object Prob020 extends UtilResult {
   def calc: Long = {
     val big = (2 to 100).map(BigInt.apply).product
-    result(big)
     big.sumDigits
   }
 }

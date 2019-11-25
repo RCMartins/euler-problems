@@ -1,25 +1,6 @@
 package euler
 
-import euler.prob001_100.prob001.Prob001
-import euler.prob001_100.prob002.Prob002
-import euler.prob001_100.prob003.Prob003
-import euler.prob001_100.prob004.Prob004
-import euler.prob001_100.prob005.Prob005
-import euler.prob001_100.prob006.Prob006
-import euler.prob001_100.prob007.Prob007
-import euler.prob001_100.prob008.Prob008
-import euler.prob001_100.prob009.Prob009
-import euler.prob001_100.prob010.Prob010
-import euler.prob001_100.prob011.Prob011
-import euler.prob001_100.prob012.Prob012
-import euler.prob001_100.prob013.Prob013
-import euler.prob001_100.prob014.Prob014
-import euler.prob001_100.prob015.Prob015
-import euler.prob001_100.prob016.Prob016
-import euler.prob001_100.prob017.Prob017
-import euler.prob001_100.prob018.Prob018
-import euler.prob001_100.prob019.Prob019
-import euler.prob001_100.prob020.Prob020
+import euler.prob001_100._
 import euler.traits.UtilResult
 import org.scalatest.FunSuite
 
@@ -27,8 +8,10 @@ class prob001_100Test extends FunSuite {
   private val problems: Map[Int, UtilResult] = {
     val problemList =
       List(
-        List(Prob001, Prob002, Prob003, Prob004, Prob005, Prob006, Prob007, Prob008, Prob009, Prob010),
-        List(Prob011, Prob012, Prob013, Prob014, Prob015, Prob016, Prob017, Prob018, Prob019, Prob020)
+        List(Prob001, Prob002, Prob003, Prob004, Prob005),
+        List(Prob006, Prob007, Prob008, Prob009, Prob010),
+        List(Prob011, Prob012, Prob013, Prob014, Prob015),
+        List(Prob016, Prob017, Prob018, Prob019, Prob020)
       )
 
     problemList.flatten.zipWithIndex.map {

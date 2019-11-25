@@ -1,4 +1,4 @@
-package euler.prob001_100.prob012
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -6,7 +6,6 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob012 extends UtilResult {
-
   def triNumber(initial: Long, n: Long): Stream[Long] = {
     val v = initial + n
     Stream.cons(v, triNumber(v, n + 1))
@@ -22,7 +21,10 @@ object Prob012 extends UtilResult {
         //println(trigN + ": " + primes)
 
         val allFactors = primes.flatMap { case (prime, times) => List.fill(times)(prime) }
-        val allUniqueDivisors = allFactors.foldLeft(List(1L))((list, prime) => list.flatMap(elem => List(elem, elem * prime))).distinct.sorted
+        val allUniqueDivisors = allFactors
+          .foldLeft(List(1L))((list, prime) => list.flatMap(elem => List(elem, elem * prime)))
+          .distinct
+          .sorted
         //println(allUniqueDivisors)
 
         if (allUniqueDivisors.length > maxDivs) {
@@ -36,5 +38,4 @@ object Prob012 extends UtilResult {
         false
     }.head
   }
-
 }

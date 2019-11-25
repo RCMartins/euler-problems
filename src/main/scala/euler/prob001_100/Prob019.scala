@@ -1,4 +1,4 @@
-package euler.prob001_100.prob019
+package euler.prob001_100
 
 import euler.traits.UtilResult
 
@@ -36,8 +36,6 @@ object Prob019 extends UtilResult {
       weekDay = (weekDay + 1) % 7
       if (year >= 1901 && weekDay == 0 && day == 1)
         sundays += 1
-
-      println(day, month, year, weekDay)
     }
 
     sundays
