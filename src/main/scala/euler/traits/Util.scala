@@ -11,7 +11,6 @@ import scala.language.implicitConversions
   * Created by Ricardo
   */
 trait Util {
-
   def NATURALS: Stream[Int] = Stream.from(1)
 
   private[Util] def br = new BufferedReader(new InputStreamReader(System.in))
@@ -24,6 +23,12 @@ trait Util {
     }
   }
 
+  def readFile(filePath: String): String = {
+    val source = scala.io.Source.fromFile(filePath)
+    try source.mkString.trim
+    finally source.close()
+  }
+
   private val isPrimeMap = mutable.HashMap[Long, Boolean]()
   isPrimeMap += 1L -> false
 
@@ -31,15 +36,14 @@ trait Util {
     isPrimeMap.get(n) match {
       case Some(result) => result
       case None =>
-        primesSoFar.foreach {
-          prime =>
-            if (prime * prime > n) {
-              isPrimeMap += n -> true
-              return true
-            } else if (n % prime == 0) {
-              isPrimeMap += n -> false
-              return false
-            }
+        primesSoFar.foreach { prime =>
+          if (prime * prime > n) {
+            isPrimeMap += n -> true
+            return true
+          } else if (n % prime == 0) {
+            isPrimeMap += n -> false
+            return false
+          }
         }
         false
     }
@@ -67,13 +71,12 @@ trait Util {
   }
 
   def testIsPrimeIntNoCache(n: Int, primesSoFar: Traversable[Int]): Boolean = {
-    primesSoFar.foreach {
-      prime =>
-        if (prime * prime > n) {
-          return true
-        } else if (n % prime == 0) {
-          return false
-        }
+    primesSoFar.foreach { prime =>
+      if (prime * prime > n) {
+        return true
+      } else if (n % prime == 0) {
+        return false
+      }
     }
     false
   }
@@ -143,9 +146,10 @@ trait Util {
     val allFactors = factors(n).flatMap {
       case (prime, times) => List.fill(times)(prime)
     }
-    val allUniqueDivisors = allFactors.foldLeft(List(1L))((list,
-        prime
-    ) => list.flatMap(elem => List(elem, elem * prime))).distinct.sorted
+    val allUniqueDivisors = allFactors
+      .foldLeft(List(1L))((list, prime) => list.flatMap(elem => List(elem, elem * prime)))
+      .distinct
+      .sorted
     allUniqueDivisors
   }
 
@@ -153,9 +157,10 @@ trait Util {
     val allFactors = factors(n).flatMap {
       case (prime, times) => List.fill(times)(prime)
     }
-    val allUniqueDivisors = allFactors.foldLeft(List(1L))((list,
-        prime
-    ) => list.flatMap(elem => List(elem, elem * prime))).distinct.sorted
+    val allUniqueDivisors = allFactors
+      .foldLeft(List(1L))((list, prime) => list.flatMap(elem => List(elem, elem * prime)))
+      .distinct
+      .sorted
     allUniqueDivisors
   }
 
@@ -201,25 +206,26 @@ trait Util {
   def LCM(a: Long, b: Long): Long = (a / GCD(a, b)) * b
 
   class RacValue(numerator_in: Long, denominator_in: Long) {
-
     val (numerator: Long, denominator: Long) = {
       val gcdValue = if (denominator_in == 0) 1 else GCD(numerator_in, denominator_in)
       (numerator_in / gcdValue, denominator_in / gcdValue)
     }
 
-    def * (other: RacValue): RacValue = new RacValue(this.numerator * other.numerator, this.denominator * other.denominator)
+    def *(other: RacValue): RacValue =
+      new RacValue(this.numerator * other.numerator, this.denominator * other.denominator)
 
     def get: (Long, Long) = (numerator, denominator)
 
-    def isReducedProperFraction: Boolean = numerator_in == numerator && denominator_in == denominator
+    def isReducedProperFraction: Boolean =
+      numerator_in == numerator && denominator_in == denominator
 
     def canEqual(other: Any): Boolean = other.isInstanceOf[RacValue]
 
     override def equals(other: Any): Boolean = other match {
       case that: RacValue =>
         (that canEqual this) &&
-            numerator == that.numerator &&
-            denominator == that.denominator
+          numerator == that.numerator &&
+          denominator == that.denominator
       case _ => false
     }
 
@@ -303,10 +309,15 @@ trait Util {
     *
     * @author Luciano Culacciatti
     */
-  private def sqrtNewtonRaphson(c: BigDecimal, xn: BigDecimal, precision: BigDecimal): BigDecimal = {
+  private def sqrtNewtonRaphson(
+      c: BigDecimal,
+      xn: BigDecimal,
+      precision: BigDecimal
+  ): BigDecimal = {
     val fx: BigDecimal = xn.pow(2) - c
     val fpx: BigDecimal = xn * BigDecimal(2)
-    var xn1: BigDecimal = fx.bigDecimal.divide(fpx.bigDecimal, 2 * SQRT_DIG.intValue, RoundingMode.HALF_DOWN)
+    var xn1: BigDecimal =
+      fx.bigDecimal.divide(fpx.bigDecimal, 2 * SQRT_DIG.intValue, RoundingMode.HALF_DOWN)
     xn1 = xn - xn1
     val currentSquare: BigDecimal = xn1.pow(2)
     var currentPrecision: BigDecimal = currentSquare - c
@@ -346,9 +357,7 @@ trait Util {
     val t = System.currentTimeMillis()
     val res = f
     val totalTime = System.currentTimeMillis() - t
-    println(s"Total time: ${
-      totalTime
-    }ms")
+    println(s"Total time: ${totalTime}ms")
     res
   }
 
@@ -369,5 +378,4 @@ trait Util {
       tst * tst == n
     }
   }
-
 }
