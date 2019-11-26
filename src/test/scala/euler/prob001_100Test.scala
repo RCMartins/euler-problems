@@ -11,7 +11,9 @@ class prob001_100Test extends FunSuite {
         List(Prob001, Prob002, Prob003, Prob004, Prob005),
         List(Prob006, Prob007, Prob008, Prob009, Prob010),
         List(Prob011, Prob012, Prob013, Prob014, Prob015),
-        List(Prob016, Prob017, Prob018, Prob019, Prob020)
+        List(Prob016, Prob017, Prob018, Prob019, Prob020),
+        List(Prob021, Prob022, Prob023, Prob024, Prob025),
+        List(Prob026, Prob027, Prob028, Prob029, Prob030)
       )
 
     problemList.flatten.zipWithIndex.map {
@@ -46,4 +48,15 @@ class prob001_100Test extends FunSuite {
   testProblem(18, 1074L)
   testProblem(19, 171L)
   testProblem(20, 648L)
+
+  testProblem(21, 31626L)
+  testProblem(22, 871198282L)
+  testProblem(23, 4179871L)
+  testProblem(24, 2783915460L)
+  testProblem(25, 4782L)
+  testProblem(26, 983L)
+  testProblem(27, -59231L)
+  testProblem(28, 669171001L)
+  testProblem(29, 9183L)
+  testProblem(30, 443839L)
 }

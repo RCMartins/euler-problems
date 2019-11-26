@@ -7,12 +7,12 @@ import euler.traits.UtilResult
   */
 object Prob008 extends UtilResult {
   def calc: Long = {
-    val DATA = readData("p008_data.txt").filter(_.isDigit)
-    val SEQ_SIZE: Int = 13
+    val data = readData("p008_data.txt").filter(_.isDigit)
+    val SeqSize: Int = 13
 
-    val indices = 0 to DATA.length - SEQ_SIZE
+    val indices = 0 to data.length - SeqSize
     val mapped = indices.map(
-      index => (index until index + SEQ_SIZE).foldLeft(1L)((total, i) => (DATA(i) - '0') * total)
+      index => (index until index + SeqSize).foldLeft(1L)((total, i) => (data(i) - '0') * total)
     )
     val sorted = mapped.zip(indices).sortWith((a, b) => a._1 > b._1)
 
