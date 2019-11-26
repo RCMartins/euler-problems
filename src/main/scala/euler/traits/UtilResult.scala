@@ -8,4 +8,11 @@ trait UtilResult extends Util {
     time(calc)
   }
 
+  def calcWithTime: (Long, Long) = {
+    val t = System.currentTimeMillis()
+    val res = calc
+    val totalTime = System.currentTimeMillis() - t
+    (res, totalTime)
+  }
+
 }

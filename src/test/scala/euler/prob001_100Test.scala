@@ -13,7 +13,9 @@ class prob001_100Test extends FunSuite {
         List(Prob011, Prob012, Prob013, Prob014, Prob015),
         List(Prob016, Prob017, Prob018, Prob019, Prob020),
         List(Prob021, Prob022, Prob023, Prob024, Prob025),
-        List(Prob026, Prob027, Prob028, Prob029, Prob030)
+        List(Prob026, Prob027, Prob028, Prob029, Prob030),
+        List(Prob031, Prob032, Prob033, Prob034, Prob035),
+        List(Prob036, Prob037, Prob038, Prob039, Prob040)
       )
 
     problemList.flatten.zipWithIndex.map {
@@ -22,8 +24,10 @@ class prob001_100Test extends FunSuite {
   }
 
   def testProblem(problemNumber: Int, expected: Long): Unit = {
-    test("Problem %03d".format(problemNumber)) {
-      assert(problems(problemNumber).calc == expected)
+    test("Problem %03d should return %d".format(problemNumber, expected)) {
+      val (result, time) = problems(problemNumber).calcWithTime
+      println(s"time: $time")
+      assert(result == expected)
     }
   }
 
@@ -59,4 +63,15 @@ class prob001_100Test extends FunSuite {
   testProblem(28, 669171001L)
   testProblem(29, 9183L)
   testProblem(30, 443839L)
+
+  testProblem(31, 73682L)
+  testProblem(32, 45228L)
+  testProblem(33, 100L)
+  testProblem(34, 40730L)
+  testProblem(35, 55L)
+  testProblem(36, 872187L)
+  testProblem(37, 748317L)
+  testProblem(38, 932718654L)
+  testProblem(39, 840L)
+  testProblem(40, 210L)
 }

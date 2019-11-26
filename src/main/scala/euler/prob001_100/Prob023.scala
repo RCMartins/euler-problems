@@ -22,9 +22,9 @@ object Prob023 extends UtilResult {
     }
 
     val abundant = (1 until MAX).filter(number => uniqueFactors(number).init.sum > number).toList
-    val sums = abundant.flatMap(a => calcSums(a, abundant)).distinct.sorted
+    val sums = abundant.flatMap(a => calcSums(a, abundant)).toSet
 
-    val set = (1 until MAX).toSet.diff(sums.toSet)
-    set.toList.sum
+    val set = (1 until MAX).toSet.diff(sums)
+    set.sum
   }
 }
