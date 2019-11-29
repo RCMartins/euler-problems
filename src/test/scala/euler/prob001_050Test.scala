@@ -2,9 +2,8 @@ package euler
 
 import euler.prob001_100._
 import euler.traits.UtilResult
-import org.scalatest.FunSuite
 
-class prob001_100Test extends FunSuite {
+class prob001_050Test extends EulerTestingSuite {
   private val problems: Map[Int, UtilResult] = {
     val problemList =
       List(
