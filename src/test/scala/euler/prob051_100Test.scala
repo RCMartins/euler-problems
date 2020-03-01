@@ -8,12 +8,16 @@ class prob051_100Test extends EulerTestingSuite {
     val problemList =
       List(
         List(Prob051, Prob052, Prob053, Prob054, Prob055),
-        List(Prob056, Prob057, Prob058, Prob059, Prob060)
+        List(Prob056, Prob057, Prob058, Prob059, Prob060),
+        List(Prob061, Prob062, Prob063)
       )
-
     problemList.flatten.zipWithIndex.map {
       case (prob, index) => (index + 51, prob)
-    }.toMap
+    }.toMap ++
+      Map(
+        65 -> Prob065,
+        67 -> Prob067
+      )
   }
 
   def testProblem(problemNumber: Int, expected: Long): Unit = {
@@ -34,4 +38,10 @@ class prob051_100Test extends EulerTestingSuite {
   testProblem(58, 26241L)
   testProblem(59, 129448L)
   testProblem(60, 26033L)
+
+  testProblem(61, 28684L)
+  testProblem(62, 127035954683L)
+  testProblem(63, 49L)
+  testProblem(65, 272L)
+  testProblem(67, 7273L)
 }
