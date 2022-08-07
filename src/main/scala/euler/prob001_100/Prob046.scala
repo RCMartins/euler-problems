@@ -8,7 +8,7 @@ import euler.traits.UtilResult
 object Prob046 extends UtilResult {
   def calc: Long = {
     val oddComp = ALL_COMPOSITE.filter(_ % 2 == 1)
-    val squares: Stream[Long] = Stream.from(1).map { n =>
+    val squares: LazyList[Long] = LazyList.from(1).map { n =>
       2 * n.toLong * n.toLong
     }
 

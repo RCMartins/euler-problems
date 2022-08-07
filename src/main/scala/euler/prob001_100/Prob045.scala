@@ -7,7 +7,7 @@ import euler.traits.UtilResult
   */
 object Prob045 extends UtilResult {
   def calc: Long = {
-    def intersectStream(a: Stream[Long], b: Stream[Long]): Stream[Long] = {
+    def intersectStream(a: LazyList[Long], b: LazyList[Long]): LazyList[Long] = {
       (a, b) match {
         case (x #:: xs, y #:: ys) =>
           if (x > y) intersectStream(a, ys)
@@ -16,7 +16,7 @@ object Prob045 extends UtilResult {
       }
     }
 
-    def from = Stream.from(1).map(_.toLong)
+    def from = LazyList.from(1).map(_.toLong)
 
     val tri = from.map(n => n * (n + 1) / 2)
     val pen = from.map(n => n * (3 * n - 1) / 2)

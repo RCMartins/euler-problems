@@ -7,9 +7,9 @@ import euler.traits.UtilResult
   */
 object Prob057 extends UtilResult {
   def calc: Long = {
-    val eDiv = Stream.continually(2)
+    val eDiv = LazyList.continually(2)
 
-    def streamSeqE(n: Int): Stream[(BigInt, BigInt)] = {
+    def streamSeqE(n: Int): LazyList[(BigInt, BigInt)] = {
       val result =
         eDiv.take(n).foldRight((BigInt(0), BigInt(1))) { case (elem, (a, b)) => (b, a + b * elem) }
 

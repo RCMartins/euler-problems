@@ -14,6 +14,9 @@ trait UtilResult extends Util {
     (res, totalTime)
   }
 
+  def println: Unit =
+    if (UtilResult.showPrints) _root_.scala.Predef.println
+
   def println(any: => Any): Unit =
     if (UtilResult.showPrints) _root_.scala.Predef.println(any)
 }

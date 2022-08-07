@@ -4,6 +4,7 @@ import euler.prob001_100._
 import euler.traits.UtilResult
 
 class prob001_050Test extends EulerTestingSuite {
+
   private val problems: Map[Int, UtilResult] = {
     val problemList =
       List(
@@ -19,13 +20,13 @@ class prob001_050Test extends EulerTestingSuite {
         List(Prob046, Prob047, Prob048, Prob049, Prob050)
       )
 
-    problemList.flatten.zipWithIndex.map {
-      case (prob, index) => (index + 1, prob)
+    problemList.flatten.zipWithIndex.map { case (prob, index) =>
+      (index + 1, prob)
     }.toMap
   }
 
   def testProblem(problemNumber: Int, expected: Long): Unit = {
-    test("Problem %03d should return %d".format(problemNumber, expected)) {
+    "Problem %03d should return %d".format(problemNumber, expected) in {
       val (result, time) = problems(problemNumber).calcWithTime
       println(s"time: $time")
       assert(result == expected)

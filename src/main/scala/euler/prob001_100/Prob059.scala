@@ -19,7 +19,7 @@ object Prob059 extends UtilResult {
       cipher = Vector(c1, c2, c3).map(_.toInt)
     } yield (cipherStr, {
       for {
-        (code, index) <- codes.zip(Stream.from(0))
+        (code, index) <- codes.zip(LazyList.from(0))
       } yield code ^ cipher(index % 3)
     }.map(_.toChar).mkString)
 

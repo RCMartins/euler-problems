@@ -2,8 +2,7 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob051 extends UtilResult {
   def calc: Long = {
@@ -14,7 +13,7 @@ object Prob051 extends UtilResult {
       comb <- (0 to primeStr.length - 2).combinations(combSize)
       replacedPrimes = (0 to 9).map(digit => {
         val numberStr =
-          comb.foldLeft(primeStr)((str, index) => str.updated(index, digit).mkString)
+          comb.foldLeft(primeStr)((str, index) => str.updated(index, ('0' + digit).toChar).mkString)
         (numberStr, !numberStr.startsWith("0") && testIsPrime(numberStr.toLong))
       })
       if 8 == replacedPrimes.count(_._2)

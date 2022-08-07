@@ -7,8 +7,8 @@ import euler.traits.UtilResult
   */
 object Prob044 extends UtilResult {
   def calc: Long = {
-    def pentagonStream(n: Long): Stream[Long] =
-      Stream.cons(n * (3 * n - 1) / 2, pentagonStream(n + 1))
+    def pentagonStream(n: Long): LazyList[Long] =
+      LazyList.cons(n * (3 * n - 1) / 2, pentagonStream(n + 1))
 
     val ALL_PENTAGON = pentagonStream(1L)
     val SMALL_PENTAGON = ALL_PENTAGON.takeWhile(_ < 10000000)

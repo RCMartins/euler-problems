@@ -6,9 +6,9 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob012 extends UtilResult {
-  def triNumber(initial: Long, n: Long): Stream[Long] = {
+  def triNumber(initial: Long, n: Long): LazyList[Long] = {
     val v = initial + n
-    Stream.cons(v, triNumber(v, n + 1))
+    LazyList.cons(v, triNumber(v, n + 1))
   }
 
   def calc: Long = {
