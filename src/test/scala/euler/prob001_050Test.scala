@@ -25,12 +25,16 @@ class prob001_050Test extends EulerTestingSuite {
     }.toMap
   }
 
-  def testProblem(problemNumber: Int, expected: Long): Unit = {
-    "Problem %03d should return %d".format(problemNumber, expected) in {
-      val (result, time) = problems(problemNumber).calcWithTime
-      println(s"time: $time")
-      assert(result == expected)
-    }
+  def testProblem(problemNumber: Int, expected: Long, ignored: Boolean = false): Unit = {
+    val testName = "Problem %03d should return %d".format(problemNumber, expected)
+    if (ignored)
+      testName ignore ()
+    else
+      testName in {
+        val (result, time) = problems(problemNumber).calcWithTime
+        println(s"time: $time")
+        assert(result == expected)
+      }
   }
 
   testProblem(1, 233168L)
@@ -57,7 +61,7 @@ class prob001_050Test extends EulerTestingSuite {
 
   testProblem(21, 31626L)
   testProblem(22, 871198282L)
-  testProblem(23, 4179871L)
+  testProblem(23, 4179871L, ignored = true)
   testProblem(24, 2783915460L)
   testProblem(25, 4782L)
   testProblem(26, 983L)
