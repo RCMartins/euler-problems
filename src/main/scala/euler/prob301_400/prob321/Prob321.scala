@@ -9,7 +9,7 @@ object Prob321 extends Util {
 
   def main(args: Array[String]): Unit = {
 
-    //    def a = Stream.from(1).map(_.toLong * 2 + 3)
+    //    def a = LazyList.from(1).map(_.toLong * 2 + 3)
     //
     //    def b = a.scanLeft(3L)(_ + _)
     //

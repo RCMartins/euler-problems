@@ -12,16 +12,16 @@ object Prob099 extends UtilResult {
     val inputStream: InputStream = new FileInputStream("data\\p099_base_exp.txt")
     val br = new BufferedReader(new InputStreamReader(inputStream))
 
-    def readAll(): Stream[List[Int]] = {
+    def readAll(): LazyList[List[Int]] = {
       readLine(br) match {
         case Some(text) =>
           if (text != null) {
             val list = text.split(',').toList.map(_.toInt)
             list #:: readAll()
           } else
-            Stream()
+            LazyList()
         case None =>
-          Stream()
+          LazyList()
       }
     }
 
@@ -32,7 +32,7 @@ object Prob099 extends UtilResult {
     var biggestSoFar = all.head
 
     for {
-      (number, index) <- all.zip(Stream.from(biggestSoFarLine))
+      (number, index) <- all.zip(LazyList.from(biggestSoFarLine))
     } {
       println(index)
       if (number > biggestSoFar) {

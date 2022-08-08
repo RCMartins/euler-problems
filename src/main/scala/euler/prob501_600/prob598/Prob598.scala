@@ -2,8 +2,7 @@ package euler.prob501_600.prob598
 
 import euler.traits.Util
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob598 extends Util {
 
@@ -15,14 +14,14 @@ object Prob598 extends Util {
     println(facts.size)
     println(facts.map(_._2 + 1).map(_.toLong).product)
 
-    def loop(facts: List[Int]): Stream[List[Int]] = {
+    def loop(facts: List[Int]): LazyList[List[Int]] = {
       facts match {
         case x :: xs =>
-          (0 to x).toStream.flatMap { n =>
+          LazyList.from(0 to x).flatMap { n =>
             loop(xs).map(n :: _)
           }
         case Nil =>
-          Stream(Nil)
+          LazyList(Nil)
       }
     }
 

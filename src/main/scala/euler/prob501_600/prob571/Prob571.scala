@@ -63,7 +63,7 @@ object Prob571 extends Util {
       pan //.toString(MAX_RADIX)
 
 //    val all = for {
-//      n <- Stream.from(1)
+//      n <- LazyList.from(1)
 //    } yield (n, v.next()) //, v.take(n).sum)
 
     val all = v.toStream

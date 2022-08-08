@@ -12,11 +12,11 @@ object Prob357 extends Util {
     val MAX = 1e8.toInt
     val all = ALL_PRIMES.takeWhile(_ < MAX).map(p => p - 1) //.map { n => println(n); n }
 
-    def allFactorsFast(allFactors: List[(Long, Int)]): Stream[Long] = {
+    def allFactorsFast(allFactors: List[(Long, Int)]): LazyList[Long] = {
       allFactors match {
-        case Nil => Stream(1)
+        case Nil => LazyList(1)
         case (factor, amount) :: others =>
-          Stream.from(1).take(amount).scanLeft(1L)((n, _) => n * factor).flatMap(n => allFactorsFast(others).map(_ * n))
+          LazyList.from(1).take(amount).scanLeft(1L)((n, _) => n * factor).flatMap(n => allFactorsFast(others).map(_ * n))
       }
     }
 

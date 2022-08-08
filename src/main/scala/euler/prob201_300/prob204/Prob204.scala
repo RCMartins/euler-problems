@@ -15,9 +15,9 @@ object Prob204 extends Util {
     val factors = SMALL_PRIMES.takeWhile(_ <= PRIMES_MAX).map(_.toLong)
     println(factors.force)
 
-    def calc(value: Long, primes: Stream[Long]): Stream[Long] = {
+    def calc(value: Long, primes: LazyList[Long]): LazyList[Long] = {
       primes match {
-        case Stream() => Stream(value)
+        case LazyList() => LazyList(value)
         case prime #:: others =>
           for {
             exp <- exponents(prime).takeWhile(_ < MAX)

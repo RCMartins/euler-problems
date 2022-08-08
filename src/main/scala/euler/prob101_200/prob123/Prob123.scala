@@ -14,7 +14,7 @@ object Prob123 extends Util {
     val primes = ALL_PRIMES
 
     val v = for {
-      (prime, index) <- primes.zip(Stream.from(1))
+      (prime, index) <- primes.zip(LazyList.from(1))
       prime2 = prime * prime
       if (BigInt(prime - 1).modPow(index, prime2) + BigInt(prime + 1).modPow(index, prime2)).mod(prime2) > MAX
     } yield index

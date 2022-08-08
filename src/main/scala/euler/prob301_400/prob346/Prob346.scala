@@ -9,8 +9,8 @@ object Prob346 extends Util {
 
   def main(args: Array[String]): Unit = {
 
-    def repunit(base: Int): Stream[Long] = {
-      def loop(before: Long, baseN: Long): Stream[Long] = {
+    def repunit(base: Int): LazyList[Long] = {
+      def loop(before: Long, baseN: Long): LazyList[Long] = {
         val n = baseN * base + before
          n #:: loop(n, baseN * base)
       }

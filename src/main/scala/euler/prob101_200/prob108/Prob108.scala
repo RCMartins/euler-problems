@@ -10,7 +10,7 @@ object Prob108 extends Util {
   def main(args: Array[String]): Unit = {
 
     val n = 6
-    println(Stream.from(n + 1).map(a => {
+    println(LazyList.from(n + 1).map(a => {
       (a, 1.0 / ((1.0 / n) - (1.0 / a)))
     }).map { case (a, b) => (a,b) }.takeWhile(pair => pair._2 >= pair._1).force)
 

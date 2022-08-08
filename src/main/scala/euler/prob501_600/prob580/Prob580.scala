@@ -14,7 +14,7 @@ object Prob580 extends Util {
 
     //    println(LCM(25, 81))
 
-    val hilberts = Stream.from(1).map(k => 4L * k + 1).map(n => n * n).takeWhile { n => /*println(n);*/ n <= MAX }
+    val hilberts = LazyList.from(1).map(k => 4L * k + 1).map(n => n * n).takeWhile { n => /*println(n);*/ n <= MAX }
 
     //  1e07 = 790
     //  1e16 = 24999999

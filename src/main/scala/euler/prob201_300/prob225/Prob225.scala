@@ -9,7 +9,7 @@ object Prob225 extends Util {
 
   def main(args: Array[String]): Unit = {
 
-    def calc(a: Int, b: Int, c: Int): Stream[Long] = {
+    def calc(a: Int, b: Int, c: Int): LazyList[Long] = {
       val n = a + b + c
       n #:: calc(b, c, n)
     }

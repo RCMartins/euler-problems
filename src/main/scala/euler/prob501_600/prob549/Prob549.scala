@@ -13,12 +13,12 @@ object Prob549 extends Util {
 
 //    val array: Array[Int] = Array.ofDim[Int](MAX)
 
-    def fact(v: BigInt, n: Int): Stream[BigInt] = {
+    def fact(v: BigInt, n: Int): LazyList[BigInt] = {
       val newVal = v * n
       newVal #:: fact(newVal, n + 1)
     }
 
-    val facts = fact(1, 1).zip(Stream.from(1)) //.takeWhile(_._1 < MAX)
+    val facts = fact(1, 1).zip(LazyList.from(1)) //.takeWhile(_._1 < MAX)
 
     println(facts.take(10).force)
 

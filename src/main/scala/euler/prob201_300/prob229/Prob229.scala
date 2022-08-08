@@ -13,7 +13,7 @@ object Prob229 extends Util {
 
     time {
       val Max = 2e9.toInt
-      val squaresList = Stream.from(1).map(n => n * n).takeWhile(_ < Max).toList
+      val squaresList = LazyList.from(1).map(n => n * n).takeWhile(_ < Max).toList
       val mapping = mutable.LongMap[Int]()
       val multList = List((1, 0x01.toShort), (2, 0x02.toShort), (3, 0x04.toShort))
 

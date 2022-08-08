@@ -2,8 +2,7 @@ package euler.prob101_200.prob103
 
 import euler.traits.Util
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob103b extends Util {
 
@@ -27,11 +26,11 @@ object Prob103b extends Util {
 
     val Max = 4
 
-    def loop(initialList: List[Int]): Stream[List[Int]] = {
-      def aux(list: List[Int]): Stream[List[Int]] = list match {
-        case Nil => Stream(Nil)
+    def loop(initialList: List[Int]): LazyList[List[Int]] = {
+      def aux(list: List[Int]): LazyList[List[Int]] = list match {
+        case Nil => LazyList(Nil)
         case x :: xs =>
-          (-Max to Max).toStream.flatMap { delta =>
+          LazyList.from(-Max to Max).flatMap { delta =>
             aux(xs).flatMap(l => {
               val y = x + delta
               if (l.contains(y))

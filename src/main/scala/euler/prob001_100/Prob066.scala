@@ -9,7 +9,7 @@ object Prob066 extends UtilResult {
   def calc: Long = {
     val v = for {
       d <- (2 to 50).filter(n => !math.sqrt(n).isWhole)
-      x <- Stream.from(1)
+      x <- LazyList.from(1)
       if (x * x - 1) % d == 0
       if math.sqrt((x * x - 1).toDouble / d).isWhole
     } yield x

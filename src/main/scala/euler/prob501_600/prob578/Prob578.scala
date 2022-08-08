@@ -4,8 +4,7 @@ import euler.traits.Util
 
 import scala.collection.mutable
 
-/**
-  * Created by Ricardo on 01-Jan-17.
+/** Created by Ricardo on 01-Jan-17.
   */
 object Prob578 extends Util {
 
@@ -38,25 +37,33 @@ object Prob578 extends Util {
 //      override def toString: String = n.toString
     }
 
-    //@tailrec
-    //    def loop(before: Stream[Long], n: Long, primes: Stream[Long]): Stream[(Long, Stream[Long])] = {
-    def loop(before: Stream[Long], primes: Stream[Long]): Stream[NumberPP] = {
+    // @tailrec
+    //    def loop(before: LazyList[Long], n: Long, primes: LazyList[Long]): LazyList[(Long, LazyList[Long])] = {
+    def loop(before: LazyList[Long], primes: LazyList[Long]): LazyList[NumberPP] = {
       primes match {
         case prime #:: others =>
-          exponents(prime).zipWithIndex.drop(2).takeWhile(pair => pair._1 > 0 && pair._1 < MAX2).flatMap {
-            //            case (n, exp) => ALL_PRIMES.flatMap(primeSmaller => expoents(primeSmaller).slice(1, exp).map(smallerFact => (n * smallerFact, prime, primeSmaller)).filter(_._1 < MAX))
-            case (n, exp) => ALL_PRIMES.takeWhile(primeSmaller => primeSmaller < prime && primeSmaller * n < MAX)
-                                       .flatMap(primeSmaller => exponents(primeSmaller).slice(1, exp)
-                                                                                      .map(smallerFact => new NumberPP(n * smallerFact, prime, primeSmaller))
-                                                                                      .filter(_.n < MAX))
-          } #::: loop(before #::: Stream(prime), others)
-        case Stream() => Stream()
+          exponents(prime).zipWithIndex
+            .drop(2)
+            .takeWhile(pair => pair._1 > 0 && pair._1 < MAX2)
+            .flatMap {
+              //            case (n, exp) => ALL_PRIMES.flatMap(primeSmaller => expoents(primeSmaller).slice(1, exp).map(smallerFact => (n * smallerFact, prime, primeSmaller)).filter(_._1 < MAX))
+              case (n, exp) =>
+                ALL_PRIMES
+                  .takeWhile(primeSmaller => primeSmaller < prime && primeSmaller * n < MAX)
+                  .flatMap(primeSmaller =>
+                    exponents(primeSmaller)
+                      .slice(1, exp)
+                      .map(smallerFact => new NumberPP(n * smallerFact, prime, primeSmaller))
+                      .filter(_.n < MAX)
+                  )
+            } #::: loop(before #::: LazyList(prime), others)
+        case LazyList() => LazyList()
       }
     }
 
     val t = System.currentTimeMillis()
 
-    val v = loop(Stream(), revPrimes)
+    val v = loop(LazyList(), revPrimes)
 
 //    v.take(10).force
 //    println(v.force)
@@ -67,11 +74,11 @@ object Prob578 extends Util {
     println("directInvalid time: " + (System.currentTimeMillis() - t))
 
 //    val indirectInvalid = {
-//      def newStream(stream: Stream[NumberPP]): Stream[NumberPP] = {
+//      def newStream(stream: LazyList[NumberPP]): LazyList[NumberPP] = {
 //        stream.flatMap { numberPP =>
 //            ALL_PRIMES.filter(prime => prime != numberPP.p1 && prime != numberPP.p2).takeWhile(_ * numberPP.n < MAX).map(primeExtra => new NumberPP(primeExtra * numberPP.n, numberPP.p1, numberPP.p2))
 //        } match {
-//          case Stream() => Stream()
+//          case LazyList() => LazyList()
 //          case s => {
 //            println("indirect loop time: " + (System.currentTimeMillis() - t), "size: " + s.size)
 //            s #::: newStream(s)
@@ -84,14 +91,17 @@ object Prob578 extends Util {
     val indirectInvalid = {
       val hash = mutable.HashSet[NumberPP]()
       hash ++= v
-      def newStream(stream: Stream[NumberPP]): Unit = {
+      def newStream(stream: LazyList[NumberPP]): Unit = {
         val lastSize = hash.size
         stream.foreach { num =>
-            ALL_PRIMES.filter(prime => prime != num.p1 && prime != num.p2).takeWhile(_ * num.n < MAX).foreach(primeExtra => hash += new NumberPP(primeExtra * num.n, num.p1, num.p2))
+          ALL_PRIMES
+            .filter(prime => prime != num.p1 && prime != num.p2)
+            .takeWhile(_ * num.n < MAX)
+            .foreach(primeExtra => hash += new NumberPP(primeExtra * num.n, num.p1, num.p2))
         }
         if (lastSize != hash.size) {
           println(("indirect loop time: " + (System.currentTimeMillis() - t), "size: " + hash.size))
-          val hashStream = hash.toStream
+          val hashStream = LazyList.from(hash)
           newStream(hashStream)
         }
       }
@@ -102,8 +112,8 @@ object Prob578 extends Util {
 
 //    println(indirectInvalid.take(10).force)
 
-    //(1124,96275)
-    //(1124,72472)
+    // (1124,96275)
+    // (1124,72472)
 
 //    println(indirectInvalid)
 
@@ -114,9 +124,7 @@ object Prob578 extends Util {
     println("total time: " + (System.currentTimeMillis() - t))
   }
 
-
 }
-
 
 //package euler.prob578
 //
@@ -166,9 +174,9 @@ object Prob578 extends Util {
 //    }*/
 //
 //    //    @tailrec
-//    //    def loopList(n: Long, primes: Stream[Int], maxExp: Int): Stream[Long] = {
+//    //    def loopList(n: Long, primes: LazyList[Int], maxExp: Int): LazyList[Long] = {
 //    //      primes match {
-//    //        case Stream() => Stream(n)
+//    //        case LazyList() => LazyList(n)
 //    //        case prime #:: others =>
 //    //          (0 to maxExp).toStream.flatMap(exp => {
 //    //            val npow = n * math.pow(prime, exp).toLong
@@ -184,12 +192,12 @@ object Prob578 extends Util {
 //    //    }
 //
 //    @tailrec
-//    def loopList(n: Long, primes: Stream[Int], exp: Int, maxExp: Int): Stream[Long] = {
+//    def loopList(n: Long, primes: LazyList[Int], exp: Int, maxExp: Int): LazyList[Long] = {
 //      primes match {
-//        case Stream() => Stream(n)
+//        case LazyList() => LazyList(n)
 //        case prime #:: others =>
 //          if (exp > maxExp) {
-//            Stream()
+//            LazyList()
 //          } else {
 //            val npow = n * math.pow(prime, exp).toLong
 //            if (npow < MAX) {
@@ -198,7 +206,7 @@ object Prob578 extends Util {
 //              else
 //                loopList(npow, primes, exp + 1, exp)
 //            } else
-//              Stream()
+//              LazyList()
 //          }
 //        //          (0 to maxExp).toStream.flatMap(exp => {
 //        //
@@ -206,7 +214,7 @@ object Prob578 extends Util {
 //      }
 //    }
 //
-//    //    def loop(n: Long, primes: Stream[Int], maxExp: Int): Int = {
+//    //    def loop(n: Long, primes: LazyList[Int], maxExp: Int): Int = {
 //    //      if (maxExp == 0 || primes.isEmpty) {
 //    //        1
 //    //      } else {
@@ -233,9 +241,9 @@ object Prob578 extends Util {
 //    //    }
 //
 //
-//    def loop2(primes: Stream[Int]): Stream[(Int, Stream[Int])] = primes match {
+//    def loop2(primes: LazyList[Int]): LazyList[(Int, LazyList[Int])] = primes match {
 //      case prime #:: tail => (prime, tail) #:: loop2(tail)
-//      case Stream() => Stream()
+//      case LazyList() => LazyList()
 //    }
 //
 //    val v = for {

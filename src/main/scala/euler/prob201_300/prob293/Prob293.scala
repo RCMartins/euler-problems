@@ -18,9 +18,9 @@ object Prob293 extends Util {
 
     def exp(base: Int) = exponents(base)
 
-    def admissible(number: Long, primes: List[Int]): Stream[Long] = {
+    def admissible(number: Long, primes: List[Int]): LazyList[Long] = {
       primes match {
-        case Nil => Stream()
+        case Nil => LazyList()
         case prime :: rest => exp(prime).drop(1).takeWhile(_ * number < MAX).flatMap{
           factor =>
             val n = number * factor
@@ -32,7 +32,7 @@ object Prob293 extends Util {
     val allAdmissible = admissible(1, all).toList.sorted
 
     val allPseodoFortunate = allAdmissible.map( adm => {
-      Stream.from(2).dropWhile(m => !testIsPrime(adm + m)).head
+      LazyList.from(2).dropWhile(m => !testIsPrime(adm + m)).head
     })
 
 //    result(allAdmissible.take(20))

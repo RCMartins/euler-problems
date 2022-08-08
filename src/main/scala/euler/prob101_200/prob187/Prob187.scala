@@ -21,9 +21,9 @@ object Prob187 extends Util {
       false
     }
 
-    def prime(n: Int, primesSoFar: Vector[Int]): Stream[Int] = {
+    def prime(n: Int, primesSoFar: Vector[Int]): LazyList[Int] = {
       if (testIsPrime(n, primesSoFar)) {
-        Stream.cons(n, prime(n + 1, primesSoFar :+ n))
+        LazyList.cons(n, prime(n + 1, primesSoFar :+ n))
       } else
         prime(n + 1, primesSoFar)
     }
@@ -41,8 +41,8 @@ object Prob187 extends Util {
 
     //    println(primes.size)
 
-    def loop(initialPrimes: Stream[Int], count: Set[Int]): Set[Int] = {
-      def loopAux(currentPrime: Int, all: Stream[Int], count: Set[Int]): Set[Int] = {
+    def loop(initialPrimes: LazyList[Int], count: Set[Int]): Set[Int] = {
+      def loopAux(currentPrime: Int, all: LazyList[Int], count: Set[Int]): Set[Int] = {
         all match {
           case prime #:: others =>
             val newN: Long = currentPrime.toLong * prime
@@ -56,7 +56,7 @@ object Prob187 extends Util {
 
       initialPrimes match {
         case a #:: as => loop(as, loopAux(a, initialPrimes, count))
-        case Stream() => count
+        case LazyList() => count
       }
     }
 

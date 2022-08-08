@@ -20,7 +20,7 @@ object Prob134 extends Util {
       } yield {
         val value = {
           val str = p1.toString
-          Stream.from(1).map(n => (n.toString + str).toLong)
+          LazyList.from(1).map(n => (n.toString + str).toLong)
         }.filter(_ % p2 == 0).head
         value
       }

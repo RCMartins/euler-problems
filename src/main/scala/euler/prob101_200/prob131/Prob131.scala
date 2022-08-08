@@ -13,7 +13,7 @@ object Prob131 extends Util {
 
     val primes = SMALL_PRIMES.takeWhile(_ < MAX)
 
-    val cubes = Stream.from(1).map(x => x.toLong * x * x).takeWhile(x => x > 0 && x < 1e18).toSet
+    val cubes = LazyList.from(1).map(x => x.toLong * x * x).takeWhile(x => x > 0 && x < 1e18).toSet
 
     time {
       val v =

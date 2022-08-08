@@ -14,16 +14,16 @@ object Prob105 extends Util {
     val inputStream = new FileInputStream("data\\p105_sets.txt")
     val br = new BufferedReader(new InputStreamReader(inputStream))
 
-    def readAll(): Stream[List[Int]] = {
+    def readAll(): LazyList[List[Int]] = {
       readLine(br) match {
         case Some(text) =>
           if (text != null) {
             val list = text.split(',').toList.map(_.toInt)
             list #:: readAll()
           } else
-            Stream()
+            LazyList()
         case None =>
-          Stream()
+          LazyList()
       }
     }
 

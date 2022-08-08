@@ -11,7 +11,7 @@ object Prob577 extends Util {
 
     val MAX = 12345
 
-    def calcPascal(value: Long, index: Long): Stream[Long] = {
+    def calcPascal(value: Long, index: Long): LazyList[Long] = {
       (value + index) #:: calcPascal(value + index, index + 1)
     }
 

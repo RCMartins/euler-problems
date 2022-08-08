@@ -16,9 +16,9 @@ object Prob518 extends Util {
     //    println("size", primes.size)
     //    println(System.currentTimeMillis() - t)
 
-    def loop(primes: Stream[Int]): Stream[(Int, Stream[Int])] = {
+    def loop(primes: LazyList[Int]): LazyList[(Int, LazyList[Int])] = {
       primes match {
-        case Stream() => Stream()
+        case LazyList() => LazyList()
         case prime #:: rest => (prime, rest) #:: loop(rest)
       }
     }
@@ -44,7 +44,7 @@ object Prob518 extends Util {
 
     var total: Long = 0
 
-    def calc(primeA: Int, primesHigher: Stream[Int]): Unit = {
+    def calc(primeA: Int, primesHigher: LazyList[Int]): Unit = {
       primesHigher match {
         case primeB #:: rest =>
           val a = primeA + 1
@@ -60,7 +60,7 @@ object Prob518 extends Util {
             }
           } else
             calc(primeA, rest)
-        case Stream() =>
+        case LazyList() =>
       }
     }
 

@@ -7,12 +7,12 @@ import euler.traits.UtilResult
   */
 object Prob061 extends UtilResult {
   def calc: Long = {
-    val p3 = Stream.from(1).map(n => n * (n + 1) / 2)
-    val p4 = Stream.from(1).map(n => n * n)
-    val p5 = Stream.from(1).map(n => n * (3 * n - 1) / 2)
-    val p6 = Stream.from(1).map(n => n * (2 * n - 1))
-    val p7 = Stream.from(1).map(n => n * (5 * n - 3) / 2)
-    val p8 = Stream.from(1).map(n => n * (3 * n - 2))
+    val p3 = LazyList.from(1).map(n => n * (n + 1) / 2)
+    val p4 = LazyList.from(1).map(n => n * n)
+    val p5 = LazyList.from(1).map(n => n * (3 * n - 1) / 2)
+    val p6 = LazyList.from(1).map(n => n * (2 * n - 1))
+    val p7 = LazyList.from(1).map(n => n * (5 * n - 3) / 2)
+    val p8 = LazyList.from(1).map(n => n * (3 * n - 2))
 
     val lists = List(p3, p4, p5, p6, p7, p8).map(_.dropWhile(_ < 1000).takeWhile(_ < 10000).toSet)
 

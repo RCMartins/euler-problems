@@ -25,16 +25,16 @@ object Prob102 extends Util {
     val inputStream = new FileInputStream("data\\p102_triangles.txt")
     val br = new BufferedReader(new InputStreamReader(inputStream))
 
-    def readAll(): Stream[List[Double]] = {
+    def readAll(): LazyList[List[Double]] = {
       readLine(br) match {
         case Some(text) =>
           if (text != null) {
             val list = text.split(',').toList.map(_.toDouble)
             list #:: readAll()
           } else
-            Stream()
+            LazyList()
         case None =>
-          Stream()
+          LazyList()
       }
     }
 

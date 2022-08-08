@@ -13,7 +13,7 @@ object Prob125 extends Util {
     val MAX = 8
 
     time {
-      val squares = Stream.from(1).map(n => n * n).takeWhile(_ < MaxValue).toVector
+      val squares = LazyList.from(1).map(n => n * n).takeWhile(_ < MaxValue).toVector
 
       def createPalindrome(size: Int): Seq[String] = {
         if (size == 0)

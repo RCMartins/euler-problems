@@ -9,15 +9,15 @@ object Prob104 extends Util {
 
   def main(args: Array[String]): Unit = {
 
-    //    def fib(a: BigInt, b: BigInt): Stream[BigInt] = {
+    //    def fib(a: BigInt, b: BigInt): LazyList[BigInt] = {
     //      val c = a + b
     //      c #:: fib(b, c)
     //    }
     //
-    //    def ALL_FIB: Stream[BigInt] = BigInt(1) #:: BigInt(1) #:: fib(BigInt(1), BigInt(1))
+    //    def ALL_FIB: LazyList[BigInt] = BigInt(1) #:: BigInt(1) #:: fib(BigInt(1), BigInt(1))
     //
     //    for {
-    //      (fib, n) <- ALL_FIB.zip(Stream.from(1)).drop(240000)
+    //      (fib, n) <- ALL_FIB.zip(LazyList.from(1)).drop(240000)
     //      _ = if (n % 20000 == 0) println(n) else ()
     //      if fib.toString.take(9).sorted == "123456789"
     //      if fib.mod(1000000000).toString.sorted == "123456789"

@@ -11,7 +11,7 @@ object Prob141 extends Util {
 
     val MaxValue = 10e12.toLong
 
-    val squares = Stream.from(1).map(n => n.toLong * n).takeWhile(_ < MaxValue)
+    val squares = LazyList.from(1).map(n => n.toLong * n).takeWhile(_ < MaxValue)
 
     println(squares.mkString("\n"))
     println(MaxValue)

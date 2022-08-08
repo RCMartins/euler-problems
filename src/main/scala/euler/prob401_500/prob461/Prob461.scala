@@ -22,13 +22,13 @@ object Prob461 extends Util {
 
 
     val v = for {
-      k <- Stream.from(1)
+      k <- LazyList.from(1)
 
-    //      a <- Stream.from(1)
-    //      b <- Stream.from(a)
+    //      a <- LazyList.from(1)
+    //      b <- LazyList.from(a)
     //      if a * a + b + c + d == N
-    //      c <- Stream.from(b)
-    //      d <- Stream.from(c)
+    //      c <- LazyList.from(b)
+    //      d <- LazyList.from(c)
     //      if a + b + c + d == N
     } yield f10(k)
 

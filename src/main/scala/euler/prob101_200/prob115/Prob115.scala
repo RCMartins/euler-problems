@@ -34,7 +34,7 @@ object Prob115 extends Util {
     }
 
     time {
-      Stream.from(m).map(n => (n, calc(n))).dropWhile(_._2 < 1000000).head._1
+      LazyList.from(m).map(n => (n, calc(n))).dropWhile(_._2 < 1000000).head._1
     }
 //    println(memory.take(MAX).toList)
 

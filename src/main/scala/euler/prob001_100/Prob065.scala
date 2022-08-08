@@ -7,10 +7,10 @@ import euler.traits.UtilResult
   */
 object Prob065 extends UtilResult {
   def calc: Long = {
-    def streamE(n: Int): Stream[Int] = 1 #:: n #:: 1 #:: streamE(n + 2)
+    def streamE(n: Int): LazyList[Int] = 1 #:: n #:: 1 #:: streamE(n + 2)
     val eDiv = streamE(2)
 
-    def streamSeqE(n: Int): Stream[(BigInt, BigInt)] = {
+    def streamSeqE(n: Int): LazyList[(BigInt, BigInt)] = {
       val result =
         eDiv.take(n).foldRight((BigInt(0), BigInt(1))) { case (elem, (a, b)) => (b, a + b * elem) }
 

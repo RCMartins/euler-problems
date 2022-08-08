@@ -14,7 +14,7 @@ object Prob348 extends Util {
 
     val v =
       for {
-        nHalf <- Stream.from(10).map(_.toString)
+        nHalf <- LazyList.from(10).map(_.toString)
         n <- List((nHalf + nHalf.reverse).toLong, (nHalf + nHalf.init.reverse).toLong)
         if cubes.takeWhile(_ < n).count(cube => squares(n - cube)) == 4
       } yield n
