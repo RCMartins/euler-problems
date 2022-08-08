@@ -1,12 +1,26 @@
-package euler.prob401_500
+package euler.prob501_600
 
 import euler.traits.UtilResult
-
-import scala.collection.mutable
 
 /** Created by Ricardo
   */
 object Prob516 extends UtilResult {
+
+  /*
+  old code:
+  val v = for {
+    n <- 1 to 10
+  } yield (1 to n).filter(GCD(_, n) == 1)
+
+  println(v)
+
+  val v2 = for {
+    n <- 1 to 100
+    if factors((1 to n).count(GCD(_, n) == 1)).forall { case (prime, _) => prime <= 5 }
+  } yield n
+
+  println(v2.sum)
+   */
 
   def calc: Long = {
     val target = Math.pow(10, 12).toLong

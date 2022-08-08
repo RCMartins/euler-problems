@@ -2,8 +2,7 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob069 extends UtilResult {
   def calc: Long = {
@@ -18,7 +17,7 @@ object Prob069 extends UtilResult {
     var maxNumber = 120120
     val initial = 376200
 
-    //progress so far (340000): 5.213541666666667 - 120120
+    // progress so far (340000): 5.213541666666667 - 120120
 
     for (number <- initial + 1 to MAX) {
       var count = 0
