@@ -2,8 +2,7 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob011 extends UtilResult {
   def sumOf4(

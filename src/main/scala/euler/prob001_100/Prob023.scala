@@ -2,17 +2,20 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+import scala.annotation.tailrec
+
+/** Created by Ricardo
   */
 object Prob023 extends UtilResult {
   def calc: Long = {
     val MAX = 28123
 
     def calcSums(a: Int, bs: List[Int]): List[Int] = {
+      @tailrec
       def calcSumsAux(bs: List[Int], acc: List[Int]): List[Int] = {
         bs match {
-          case Nil => acc
+          case Nil =>
+            acc
           case b :: bs =>
             val sum = a + b
             if (sum > MAX) acc else calcSumsAux(bs, sum :: acc)
