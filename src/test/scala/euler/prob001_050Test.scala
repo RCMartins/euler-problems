@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 
 class prob001_050Test extends EulerTestingSuite {
 
-  private val problems: Map[Int, UtilResult] = {
+   val problems: Map[Int, UtilResult] = {
     val problemList =
       List(
         List(Prob001, Prob002, Prob003, Prob004, Prob005),
@@ -25,17 +25,6 @@ class prob001_050Test extends EulerTestingSuite {
     }.toMap
   }
 
-  def testProblem(problemNumber: Int, expected: Long, ignored: Boolean = false): Unit = {
-    val testName = "Problem %03d should return %d".format(problemNumber, expected)
-    if (ignored)
-      testName ignore ()
-    else
-      testName in {
-        val (result, time) = problems(problemNumber).calcWithTime
-        println(s"time: $time")
-        assert(result == expected)
-      }
-  }
 
   testProblem(1, 233168L)
   testProblem(2, 4613732L)
