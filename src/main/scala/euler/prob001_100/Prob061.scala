@@ -2,8 +2,7 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob061 extends UtilResult {
   def calc: Long = {
@@ -16,34 +15,33 @@ object Prob061 extends UtilResult {
 
     val lists = List(p3, p4, p5, p6, p7, p8).map(_.dropWhile(_ < 1000).takeWhile(_ < 10000).toSet)
 
-    println(lists.map(_.size))
-    println(lists.map(_.size).sum)
+    val twoDigitNumbers: LazyList[Int] =
+      LazyList.from(10 to 99)
 
-    def num(a: Int, b: Int) = a * 100 + b
+    @inline def num(a: Int, b: Int): Int = a * 100 + b
 
-    def loop(i: Int, a: Int, b: Int, lists: List[Set[Int]], acc: List[Int]): Unit = {
-      lists match {
-        case Nil =>
-          if (acc.head.toString.drop(2).toInt == i) {
-            println((acc.size, acc.sum, acc.reverse))
-            //return acc.sum
-          }
-        case _ =>
-          (10 to 99).foreach(
-            c =>
-              lists
-                .filter(_(num(b, c)))
-                .foreach(list => loop(i, b, c, lists.filterNot(_ eq list), num(b, c) :: acc))
+    def loop(a: Int, b: Int, lists: List[Set[Int]], acc: List[Int]): Option[Long] =
+      if (lists.isEmpty)
+        if (acc.head.toString.drop(2).toInt == a)
+          Some(acc.sum)
+        else
+          None
+      else
+        twoDigitNumbers
+          .flatMap(c =>
+            lists
+              .filter(_(num(b, c)))
+              .flatMap(list => loop(a, c, lists.filterNot(_ eq list), num(b, c) :: acc))
           )
+          .headOption
+
+    LazyList
+      .from(lists.head)
+      .flatMap { elem =>
+        val str = elem.toString
+        val (a, b) = str.splitAt(2)
+        loop(a.toInt, b.toInt, lists.tail, List(elem))
       }
-    }
-
-    for {
-      elem <- lists.head
-      str = elem.toString
-      (a, b) = str.splitAt(2)
-    } loop(a.toInt, a.toInt, b.toInt, lists.tail, List(elem))
-
-    ???
+      .head
   }
 }
