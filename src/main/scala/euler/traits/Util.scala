@@ -2,10 +2,8 @@ package euler.traits
 
 import java.io.{BufferedReader, File, IOException, InputStreamReader}
 import java.math.RoundingMode
-
 import scala.annotation.tailrec
 import scala.collection.{Iterable, mutable}
-import scala.language.implicitConversions
 
 /** Created by Ricardo
   */

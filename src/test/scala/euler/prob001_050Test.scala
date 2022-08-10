@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 
 class prob001_050Test extends EulerTestingSuite {
 
-   val problems: Map[Int, UtilResult] = {
+  val problems: Map[Int, UtilResult] = {
     val problemList =
       List(
         List(Prob001, Prob002, Prob003, Prob004, Prob005),
@@ -24,7 +24,6 @@ class prob001_050Test extends EulerTestingSuite {
       (index + 1, prob)
     }.toMap
   }
-
 
   testProblem(1, 233168L)
   testProblem(2, 4613732L)

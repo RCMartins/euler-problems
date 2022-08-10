@@ -2,8 +2,7 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob032 extends UtilResult {
   def calc: Long = {
