@@ -2,6 +2,8 @@ package euler.prob301_400
 
 import euler.traits.UtilResult
 
+import scala.collection.mutable
+
 /** Created by Ricardo
   */
 object Prob345 extends UtilResult {
@@ -9,11 +11,6 @@ object Prob345 extends UtilResult {
   def calc: Long = {
 
     val data: Vector[Vector[Int]] =
-//      """7  53 183 439 863
-//        |497 383 563  79 973
-//        |287  63 343 169 583
-//        |627 343 773 959 943
-//        |767 473 103 699 303""".stripMargin
       """  7  53 183 439 863 497 383 563  79 973 287  63 343 169 583
         |627 343 773 959 943 767 473 103 699 303 957 703 583 639 913
         |447 283 463  29  23 487 463 993 119 883 327 493 423 159 743
@@ -33,67 +30,29 @@ object Prob345 extends UtilResult {
         .map(_.split(" ").filter(_.nonEmpty).map(_.toInt).toVector)
         .toVector
 
-    println(data.mkString("\n"))
-
-    def bruteForce: Int = {
-      val n = data.size
-
-      val solution: Array[Int] = Array.fill[Int](n)(-1)
-      val yUsed: Array[Boolean] = Array.fill[Boolean](n)(false)
-      var bestSolution: Int = 0
-
-      def loop(i: Int): Unit = {
-        if (i == n) {
-          val solutionSum = solution.zipWithIndex.map { case (y, x) => data(x)(y) }.sum
-          if (solutionSum > bestSolution) {
-            println(s"$solutionSum   ${solution.toList}")
-            bestSolution = solutionSum
-          }
-        } else {
-          for (k <- 0 until n) {
-            if (!yUsed(k)) {
-              solution(i) = k
-              yUsed(k) = true
-              loop(i + 1)
-              yUsed(k) = false
-            }
-          }
-        }
-      }
-
-      loop(i = 0)
-
-      bestSolution
-    }
-
     val n = data.size
-
-    val solution: Array[Int] = Array.fill[Int](n)(-1)
     val yUsed: Array[Boolean] = Array.fill[Boolean](n)(false)
-    var bestSolution: Int = 0
+    val cache: mutable.Map[List[Boolean], Int] = mutable.Map.empty
 
-    def loop(i: Int): Unit = {
-      if (i == n) {
-        val solutionSum = solution.zipWithIndex.map { case (y, x) => data(x)(y) }.sum
-        if (solutionSum > bestSolution) {
-          println(s"$solutionSum   ${solution.toList}")
-          bestSolution = solutionSum
+    def loop(i: Int, sum: Int): Int =
+      cache.getOrElseUpdate(
+        yUsed.toList, {
+          (for (k <- 0 until n) yield {
+            if (!yUsed(k)) {
+              yUsed(k) = true
+              val finalSum: Int =
+                sum + data(i)(k) + (if (i + 1 == n) 0 else loop(i + 1, 0))
+              yUsed(k) = false
+              finalSum
+            } else
+              sum
+          }).max
         }
-      } else {
-        for (k <- 0 until n) {
-          if (!yUsed(k)) {
-            solution(i) = k
-            yUsed(k) = true
-            loop(i + 1)
-            yUsed(k) = false
-          }
-        }
-      }
-    }
+      )
 
-    loop(i = 0)
+    loop(i = 0, sum = 0)
 
-    bestSolution
+    // answer: 13938
   }
 
 }
