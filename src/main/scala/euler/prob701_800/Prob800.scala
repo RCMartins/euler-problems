@@ -4,6 +4,7 @@ import better.files.File
 import euler.traits.UtilResult
 
 import scala.annotation.tailrec
+import scala.collection.mutable
 import scala.util.chaining.scalaUtilChainingOps
 
 /** Created by Ricardo
@@ -35,25 +36,64 @@ object Prob800 extends UtilResult {
     val initialMaxIndex: Int =
       indexToPrimes.length - 1
 
+    val cacheFormula: mutable.Map[Int, mutable.SortedMap[Int, BigInt]] = mutable.Map.empty
+
+//    @inline
+//    def formula(p: Int, q: Int): BigInt =
+//      BigInt(p).pow(q) * BigInt(q).pow(p)
+
+//    val CacheStep: Int = 25000
+
+    @inline
+    def getPrimeCached(base: Int, exp: Int): BigInt = {
+      cacheFormula.get(base) match {
+        case None =>
+//          if (exp < CacheStep) {
+          val res = BigInt(base).pow(exp)
+          cacheFormula.update(base, mutable.SortedMap((exp, res)))
+          res
+//          } else {
+//            val steps = exp / CacheStep
+//            val lastStep = exp % CacheStep
+//
+//            val resStep = BigInt(base).pow(CacheStep)
+//            val resLastStep = BigInt(base).pow(lastStep)
+//
+//            val allCache = (1 until steps).scanLeft((resStep, CacheStep)) {
+//              case ((acc, index), _) => (acc * resStep, index + CacheStep)
+//            }
+//
+//            val res = allCache.last._1 * resLastStep
+//            val map: mutable.SortedMap[Int, BigInt] = mutable.SortedMap((exp, res))
+//            allCache.foreach { case (bigInt, index) => map.addOne((index, bigInt)) }
+//            cacheFormula.update(base, map)
+//            res
+//          }
+        case Some(sortedMap) =>
+          sortedMap.getOrElseUpdate(
+            exp, {
+              sortedMap.rangeUntil(exp).lastOption match {
+                case Some((lowerExp, lowerValue)) =>
+//                  val res1 = BigInt(base).pow(exp)
+                  val res2 = lowerValue * BigInt(base).pow(exp - lowerExp)
+//                  val equalRes = res1 == res2
+                  res2
+                case None =>
+                  ???
+              }
+            }
+          )
+      }
+    }
+
     @inline
     def formula(p: Int, q: Int): BigInt =
-      BigInt(p).pow(q) * BigInt(q).pow(p)
+      getPrimeCached(p, q) * getPrimeCached(q, p)
 
     @inline
     def valid(p: Int, q: Int): Boolean =
       p + q < limitBase ||
         timeOnly(formula(p, q)) <= limit // && { println((p, q)); true }
-
-//    {
-//      val n = 2
-//
-//      val afterLast =
-//        primes.dropWhile(_ <= n).dropWhile(valid(n, _)).headOption
-//
-//      println(afterLast)
-//    }
-
-//    ???
 
     @tailrec
     def findLoop(
@@ -64,7 +104,11 @@ object Prob800 extends UtilResult {
       if (max == min + 1)
         max
       else {
-        val middle = (max + min) / 2
+        val middle =
+          if (max - min > 100)
+            (max * 3 + min) / 4
+          else
+            (max + min) / 2
         if (valid(headPrime, indexToPrimes(middle)))
           findLoop(headPrime, middle, max)
         else

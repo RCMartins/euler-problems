@@ -2,8 +2,9 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+import scala.annotation.tailrec
+
+/** Created by Ricardo
   */
 object Prob037 extends UtilResult {
   def calc: Long = {
@@ -12,6 +13,8 @@ object Prob037 extends UtilResult {
     var total = Set[Long]()
     total ++= all.filter(testIsPrime(_))
 
+    @unchecked
+    @tailrec
     def primeToLeft(n: List[Char]): Boolean = {
       n match {
         case List(c) => List(2, 3, 5, 7).contains(c - '0')
@@ -19,6 +22,7 @@ object Prob037 extends UtilResult {
       }
     }
 
+    @tailrec
     def primeToRight(n: List[Char]): Boolean = {
       n match {
         case List(c) => List(2, 3, 5, 7).contains(c - '0')
@@ -29,19 +33,18 @@ object Prob037 extends UtilResult {
     }
 
     while (total.size < 11) {
-      all = all.flatMap(
-        prime =>
-          (1 to 9).flatMap(n => {
-            val primeStr = prime.toString
-            val init = primeStr.init + n
-            if (testIsPrime(init.toLong))
-              List((init + primeStr.last).toLong)
-            else
-              Nil
-          })
+      all = all.flatMap(prime =>
+        (1 to 9).flatMap(n => {
+          val primeStr = prime.toString
+          val init = primeStr.init + n
+          if (testIsPrime(init.toLong))
+            List((init + primeStr.last).toLong)
+          else
+            Nil
+        })
       )
-      total ++= all.filter(
-        n => testIsPrime(n) && primeToLeft(n.toString.toList) && primeToRight(n.toString.toList)
+      total ++= all.filter(n =>
+        testIsPrime(n) && primeToLeft(n.toString.toList) && primeToRight(n.toString.toList)
       )
     }
 

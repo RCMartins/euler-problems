@@ -61,6 +61,7 @@ object Prob788 extends UtilResult {
         calc(n) + D(n - 1)
 
     D(targetN).mod(moduleBigInt).toLong
+
     // Wrong: 259013341
   }
 }

@@ -4,8 +4,7 @@ import java.io.{BufferedReader, FileInputStream, InputStream, InputStreamReader}
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob099 extends UtilResult {
   def calc: Long = {
@@ -27,7 +26,8 @@ object Prob099 extends UtilResult {
 
     var biggestSoFarLine = 171
 
-    val all = readAll().drop(biggestSoFarLine).map { case List(base, exp) => BigInt(base).pow(exp) }
+    val all: LazyList[BigInt] =
+      readAll().drop(biggestSoFarLine).collect { case List(base, exp) => BigInt(base).pow(exp) }
 
     var biggestSoFar = all.head
 
@@ -38,12 +38,12 @@ object Prob099 extends UtilResult {
       if (number > biggestSoFar) {
         biggestSoFar = number
         biggestSoFarLine = index
-        println(s"var biggestSoFarLine = $biggestSoFarLine\n")
+        println(s"biggestSoFarLine = $biggestSoFarLine\n")
       }
     }
 
     biggestSoFarLine + 1
 
-    //709
+    // answer: 709
   }
 }
