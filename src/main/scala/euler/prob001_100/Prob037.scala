@@ -13,12 +13,12 @@ object Prob037 extends UtilResult {
     var total = Set[Long]()
     total ++= all.filter(testIsPrime(_))
 
-    @unchecked
     @tailrec
     def primeToLeft(n: List[Char]): Boolean = {
       n match {
         case List(c) => List(2, 3, 5, 7).contains(c - '0')
         case _ :: cx => testIsPrime(cx.mkString.toLong) && primeToLeft(cx)
+        case _       => false
       }
     }
 

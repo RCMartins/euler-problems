@@ -41,7 +41,7 @@ object Prob034 extends UtilResult {
 
     var counter = 1L
     while (queue.nonEmpty) {
-      val next: NumberElement = queue.dequeue
+      val next: NumberElement = queue.dequeue()
       if (next.isCurious && next.number >= 10) {
         foundNumbers = next.number.toInt :: foundNumbers
       }
