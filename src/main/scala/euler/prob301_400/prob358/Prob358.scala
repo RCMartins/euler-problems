@@ -2,13 +2,12 @@ package euler.prob301_400.prob358
 
 import euler.traits.Util
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob358 extends Util {
 
   val UNKNOWN_CHAR = '.'
-  @inline private final val UNKNOWN_N = -1
+  @inline final private val UNKNOWN_N = -1
 
   def main(args: Array[String]): Unit = {
 
@@ -30,9 +29,9 @@ object Prob358 extends Util {
       val hideLength = n2.toString.length + 1
 
       def aux(number: List[Int], n2: Int, over: Int, hide: Int): Either[Int, List[Int]] =
-      //        if (n2 % 10 == 0) {
-      //          0 :: aux(number, n2 / 10, over, hide)
-      //        } else {
+        //        if (n2 % 10 == 0) {
+        //          0 :: aux(number, n2 / 10, over, hide)
+        //        } else {
         number match {
           case n :: numberList =>
             if (n == UNKNOWN_N) {
@@ -111,7 +110,7 @@ object Prob358 extends Util {
         case (x :: xs, y :: ys) =>
           (x == UNKNOWN_N || y == UNKNOWN_N || x == y) && matchNumbers(xs, ys)
         case (Nil, Nil) => true
-        case _ => false
+        case _          => false
       }
     }
 
@@ -123,18 +122,25 @@ object Prob358 extends Util {
       def loopFind(initialNumber: List[Int], indexUnknown: Int, unknownCounter: Int): Unit = {
         val totalSize = initialNumber.length
 
-        def numberRotations = (1 until totalSize).toStream.map(index => {
-          initialNumber.drop(index) ++ initialNumber.take(index)
-        })
+        def numberRotations: LazyList[List[Int]] =
+          LazyList
+            .from(1 until totalSize)
+            .map(index => {
+              initialNumber.drop(index) ++ initialNumber.take(index)
+            })
 
         //        println(initialNumber.reverse.mkString)
         //        println(numberRotations.map(_.reverse.mkString))
         //        println((1 to totalSize).map(multiplier => multiplier + ": " + multSpecial(initialNumber, multiplier)).mkString("\n"))
 
-        if ((2 to totalSize).map(multiplier => multSpecial(initialNumber, multiplier).toOption).forall({
-          case None => false
-          case Some(testNumber) => numberRotations.exists(r => matchNumbers(r, testNumber))
-        })) {
+        if (
+          (2 to totalSize)
+            .map(multiplier => multSpecial(initialNumber, multiplier).toOption)
+            .forall({
+              case None             => false
+              case Some(testNumber) => numberRotations.exists(r => matchNumbers(r, testNumber))
+            })
+        ) {
           if (unknownCounter == 0) {
             println(initialNumber.reverse.mkString)
             result(initialNumber.sum)
@@ -146,7 +152,11 @@ object Prob358 extends Util {
 
           for {
             digit <- 0 to 9
-          } loopFind(initialNumber.updated(indexUnknown, digit), indexUnknown - 1, unknownCounter - 1)
+          } loopFind(
+            initialNumber.updated(indexUnknown, digit),
+            indexUnknown - 1,
+            unknownCounter - 1
+          )
         }
       }
 

@@ -2,8 +2,7 @@ package euler.prob701_800
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob709 extends UtilResult {
   def calcSlowAndHeapException: Long = {
@@ -43,10 +42,10 @@ object Prob709 extends UtilResult {
     val min = Math.max(1, Max - 10)
     for (j <- min to Max) {
       for (i <- min to Max)
-        print(arr(i)(j).formatted("%10d "))
-      println
+        print("%10d ".format(arr(i)(j)))
+      println()
     }
-    println
+    println()
 
     arr(Max).sum
   }
