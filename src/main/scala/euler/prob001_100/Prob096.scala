@@ -10,6 +10,10 @@ object Prob096 extends UtilResult {
 
   private class SmartSquare(initialNumber: Int) {
 
+    private var line: Seq[SmartSquare] = Vector.empty
+    private var column: Seq[SmartSquare] = Vector.empty
+    private var box: Seq[SmartSquare] = Vector.empty
+
     private var possibleNumbers: SortedSet[Int] =
       if (initialNumber == 0) SortedSet.from(1 to 9) else SortedSet(initialNumber)
 
@@ -52,6 +56,28 @@ object Prob096 extends UtilResult {
     def addReference(newReference: () => Unit): Unit =
       references = newReference :: references
 
+    def getLine: Seq[SmartSquare] = line
+
+    def setLine(seq: Seq[SmartSquare]): Unit = line = seq
+
+    def getColumn: Seq[SmartSquare] = column
+
+    def setColumn(seq: Seq[SmartSquare]): Unit = column = seq
+
+    def getBox: Seq[SmartSquare] = box
+
+    def setBox(seq: Seq[SmartSquare]): Unit = box = seq
+
+    lazy val boxWithoutSelf: Seq[SmartSquare] = box.filterNot(_ eq this)
+
+    lazy val line3: Seq[SmartSquare] = line.filter(box.contains)
+    lazy val lineOther6: Seq[SmartSquare] = line.filterNot(box.contains)
+    lazy val boxOtherLine: Seq[SmartSquare] = box.filterNot(line3.contains)
+
+    lazy val column3: Seq[SmartSquare] = column.filter(box.contains)
+    lazy val columnOther6: Seq[SmartSquare] = column.filterNot(box.contains)
+    lazy val boxOthercolumn: Seq[SmartSquare] = box.filterNot(column3.contains)
+
     override def toString: String =
       if (possibleNumbers.sizeIs == 1)
         s"     ${possibleNumbers.head}     "
@@ -62,7 +88,7 @@ object Prob096 extends UtilResult {
         (" " * before) + nStr + (" " * after)
       }
 
-    override def equals(obj: Any): Boolean = this eq obj
+    override def equals(obj: Any): Boolean = this eq obj.asInstanceOf[SmartSquare]
 
   }
 
@@ -93,25 +119,37 @@ object Prob096 extends UtilResult {
             case None =>
           }
         }
+
+        square.numbers.foreach {
+          _.find(number => square.boxOtherLine.forall(!_.allNumbers(number))) match {
+            case None =>
+            case Some(numberToRemove) =>
+              square.lineOther6.foreach(_.removeNumber(numberToRemove))
+          }
+        }
+
+        square.numbers.foreach {
+          _.find(number => square.boxOthercolumn.forall(!_.allNumbers(number))) match {
+            case None =>
+            case Some(numberToRemove) =>
+              square.columnOther6.foreach(_.removeNumber(numberToRemove))
+          }
+        }
+
+        square.numbers.foreach { numbers =>
+          val allEqual = square.boxWithoutSelf.filter(_.allNumbers == numbers)
+          if (allEqual.sizeIs == numbers.size - 1) {
+            square.boxWithoutSelf.filterNot(allEqual.contains).foreach(_.removeNumber(numbers))
+          }
+        }
       })
     }
 
-  private def addRowRules(game: Seq[Seq[SmartSquare]]): Unit =
-    game.foreach { line =>
-      line.foreach { square =>
-        val lineWithoutSelf = line.filterNot(_ eq square)
+  private def addGroupRules(groupSeq: Seq[Seq[SmartSquare]]): Unit =
+    groupSeq.foreach { group =>
+      group.foreach { square =>
+        val lineWithoutSelf = group.filterNot(_ eq square)
         addRule(square, lineWithoutSelf)
-      }
-    }
-
-  private def addSquareRules(game: Seq[Seq[SmartSquare]]): Unit =
-    game.grouped(3).foreach { lines =>
-      lines.transpose.grouped(3).foreach { box =>
-        val flattenBox = box.flatten
-        flattenBox.map { square =>
-          val boxWithoutSelf = flattenBox.filterNot(_ eq square)
-          addRule(square, boxWithoutSelf)
-        }
       }
     }
 
@@ -123,7 +161,7 @@ object Prob096 extends UtilResult {
     val games: List[List[String]] = data.grouped(10).toList
 
     val gameResults: List[Int] =
-      games.zipWithIndex.map { case (gameStrList, gameIndex) =>
+      games.zipWithIndex.drop(6).map { case (gameStrList, gameIndex) =>
         println(s" >>> Game ${gameIndex + 1} <<<")
         println()
 
@@ -131,17 +169,28 @@ object Prob096 extends UtilResult {
           gameStrList.drop(1).toVector.map(_.toCharArray.map(_.toInt - '0').toVector)
 
         val game: Seq[Seq[SmartSquare]] =
-          gameRaw.map { line =>
-            line.map(new SmartSquare(_))
-          }
+          gameRaw.map(_.map(new SmartSquare(_)))
+
         val columns: Seq[Seq[SmartSquare]] =
           game.transpose
 
+        val boxes: Seq[Seq[SmartSquare]] =
+          game
+            .grouped(3)
+            .flatMap { lines =>
+              lines.transpose.grouped(3).map(_.flatten)
+            }
+            .toSeq
+
+        game.foreach(line => line.foreach(_.setLine(line)))
+        columns.foreach(column => column.foreach(_.setColumn(column)))
+        boxes.foreach(box => box.foreach(_.setBox(box)))
+
         drawGame(game)
 
-        addRowRules(game)
-        addRowRules(columns)
-        addSquareRules(game)
+        addGroupRules(game)
+        addGroupRules(columns)
+        addGroupRules(boxes)
 
         initialUpdate(game)
 
