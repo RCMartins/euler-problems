@@ -260,8 +260,7 @@ object Prob096 extends UtilResult {
     ): Int =
       allSmartSquares match {
         case Nil =>
-          println("Can't solve it :(")
-          0
+          ???
         case (_, Nil) :: next =>
           loop(next, backup, tries)
         case (smartSquare, number :: nextNumbers) :: next =>
