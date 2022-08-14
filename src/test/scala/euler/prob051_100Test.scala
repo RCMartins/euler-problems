@@ -14,7 +14,10 @@ class prob051_100Test extends EulerTestingSuite {
 
     problemList.flatten.zipWithIndex.map { case (prob, index) =>
       (index + 51, prob)
-    }.toMap
+    }.toMap ++
+      Map(
+        96 -> Prob096
+      )
   }
 
   testProblem(51, 121313L)
@@ -27,4 +30,6 @@ class prob051_100Test extends EulerTestingSuite {
   testProblem(58, 26241L)
   testProblem(59, 129448L)
   testProblem(60, 26033L, ignored = true)
+
+  testProblem(96, 24702L)
 }
