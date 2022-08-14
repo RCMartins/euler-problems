@@ -2,7 +2,9 @@ package euler.prob001_100
 
 import euler.traits.UtilResult
 
+import scala.annotation.tailrec
 import scala.collection.immutable.SortedSet
+import scala.util.{Failure, Success, Try}
 
 /** Created by Ricardo
   */
@@ -28,6 +30,9 @@ object Prob096 extends UtilResult {
     def allNumbers: SortedSet[Int] =
       possibleNumbers
 
+    def backupSet(backupNumbers: SortedSet[Int]): Unit =
+      possibleNumbers = backupNumbers
+
     def setNumber(newNumber: Int): Unit = {
       val updatedPossibleNumbers = SortedSet(newNumber)
       if (possibleNumbers != updatedPossibleNumbers) {
@@ -41,7 +46,9 @@ object Prob096 extends UtilResult {
 
     def removeNumber(numbersToRemove: Iterable[Int]): Unit = {
       val updatedPossibleNumbers = possibleNumbers -- numbersToRemove
-      if (possibleNumbers != updatedPossibleNumbers) {
+      if (updatedPossibleNumbers.isEmpty)
+        throw new Exception("Reached an impossible state!")
+      else if (possibleNumbers != updatedPossibleNumbers) {
         possibleNumbers = updatedPossibleNumbers
         update()
       }
@@ -76,7 +83,13 @@ object Prob096 extends UtilResult {
 
     lazy val column3: Seq[SmartSquare] = column.filter(box.contains)
     lazy val columnOther6: Seq[SmartSquare] = column.filterNot(box.contains)
-    lazy val boxOthercolumn: Seq[SmartSquare] = box.filterNot(column3.contains)
+    lazy val boxOtherColumn: Seq[SmartSquare] = box.filterNot(column3.contains)
+
+    lazy val allLineBoxes: Seq[Seq[SmartSquare]] = line.map(_.getBox).distinct
+    lazy val allColumnBoxes: Seq[Seq[SmartSquare]] = column.map(_.getBox).distinct
+
+    lazy val otherLineBoxes: Seq[Seq[SmartSquare]] = allLineBoxes.filterNot(_ eq box)
+    lazy val otherColumnBoxes: Seq[Seq[SmartSquare]] = allColumnBoxes.filterNot(_ eq box)
 
     override def toString: String =
       if (possibleNumbers.sizeIs == 1)
@@ -119,29 +132,6 @@ object Prob096 extends UtilResult {
             case None =>
           }
         }
-
-        square.numbers.foreach {
-          _.find(number => square.boxOtherLine.forall(!_.allNumbers(number))) match {
-            case None =>
-            case Some(numberToRemove) =>
-              square.lineOther6.foreach(_.removeNumber(numberToRemove))
-          }
-        }
-
-        square.numbers.foreach {
-          _.find(number => square.boxOthercolumn.forall(!_.allNumbers(number))) match {
-            case None =>
-            case Some(numberToRemove) =>
-              square.columnOther6.foreach(_.removeNumber(numberToRemove))
-          }
-        }
-
-        square.numbers.foreach { numbers =>
-          val allEqual = square.boxWithoutSelf.filter(_.allNumbers == numbers)
-          if (allEqual.sizeIs == numbers.size - 1) {
-            square.boxWithoutSelf.filterNot(allEqual.contains).foreach(_.removeNumber(numbers))
-          }
-        }
       })
     }
 
@@ -153,18 +143,170 @@ object Prob096 extends UtilResult {
       }
     }
 
+  private def addBoxRules(game: Seq[Seq[SmartSquare]]): Unit = {
+    game.flatten.foreach { square =>
+      square.getBox.foreach(_.runIfUnset(_.addReference { () =>
+        square.numbers.foreach {
+          _.filter(number => square.boxOtherLine.forall(!_.allNumbers(number))).foreach {
+            numberToRemove => square.lineOther6.foreach(_.removeNumber(numberToRemove))
+          }
+        }
+
+        square.numbers.foreach {
+          _.filter(number => square.boxOtherColumn.forall(!_.allNumbers(number))).foreach {
+            numberToRemove => square.columnOther6.foreach(_.removeNumber(numberToRemove))
+          }
+        }
+
+        square.numbers.foreach { numbers =>
+          val allEqual = square.boxWithoutSelf.filter(_.allNumbers == numbers)
+          if (allEqual.sizeIs == numbers.size - 1) {
+            square.boxWithoutSelf.filterNot(allEqual.contains).foreach(_.removeNumber(numbers))
+          }
+        }
+      }))
+
+      square.allLineBoxes.flatten.foreach(_.runIfUnset(_.addReference { () =>
+        square.numbers.foreach { numbers =>
+          numbers.foreach { number =>
+            if (square.boxOtherColumn.count(_.allNumbers(number)) == 0) {
+              val filteredSquares: Seq[SmartSquare] =
+                square.column3.filter(_.numbers.exists(_(number)))
+              lazy val otherFilteredBox: Seq[Seq[Seq[SmartSquare]]] =
+                square.otherLineBoxes
+                  .filter(!_.exists(_.number.contains(number)))
+                  .map(_.map(_.line3).distinct.filter(_.exists(_.numbers.exists(_(number)))))
+                  .filter(_.nonEmpty)
+
+              if (filteredSquares.sizeIs == 2 && square.column3.forall(!_.number.contains(number)))
+                otherFilteredBox match {
+                  case Seq(first, other)
+                      if first.size == 2 &&
+                        filteredSquares.map(_.getLine) == first.map(_.head.getLine) =>
+                    val excludeLines = filteredSquares.flatMap(_.getLine)
+                    other.flatten.filter(excludeLines.contains).foreach(_.removeNumber(number))
+                  case Seq(other, second)
+                      if second.size == 2 &&
+                        filteredSquares.map(_.getLine) == second.map(_.head.getLine) =>
+                    val excludeLines = filteredSquares.flatMap(_.getLine)
+                    other.flatten.filter(excludeLines.contains).foreach(_.removeNumber(number))
+                  case _ =>
+                }
+            }
+          }
+        }
+      }))
+
+      square.allColumnBoxes.flatten.foreach(_.runIfUnset(_.addReference { () =>
+        square.numbers.foreach { numbers =>
+          numbers.foreach { number =>
+            if (square.boxOtherLine.count(_.allNumbers(number)) == 0) {
+              val filteredSquares: Seq[SmartSquare] =
+                square.line3.filter(_.numbers.exists(_(number)))
+              lazy val otherFilteredBox: Seq[Seq[Seq[SmartSquare]]] =
+                square.otherColumnBoxes
+                  .filter(!_.exists(_.number.contains(number)))
+                  .map(_.map(_.column3).distinct.filter(_.exists(_.numbers.exists(_(number)))))
+                  .filter(_.nonEmpty)
+
+              if (filteredSquares.sizeIs == 2 && square.line3.forall(!_.number.contains(number)))
+                otherFilteredBox match {
+                  case Seq(first, other)
+                      if first.size == 2 &&
+                        filteredSquares.map(_.getColumn) == first.map(_.head.getColumn) =>
+                    val excludeColumns = filteredSquares.flatMap(_.getColumn)
+                    other.flatten.filter(excludeColumns.contains).foreach(_.removeNumber(number))
+                  case Seq(other, second)
+                      if second.size == 2 &&
+                        filteredSquares.map(_.getColumn) == second.map(_.head.getColumn) =>
+                    val excludeColumns = filteredSquares.flatMap(_.getColumn)
+                    other.flatten.filter(excludeColumns.contains).foreach(_.removeNumber(number))
+                  case _ =>
+                }
+            }
+          }
+        }
+      }))
+    }
+  }
+
   private def initialUpdate(game: Seq[Seq[SmartSquare]]): Unit =
     game.foreach(_.foreach(_.update()))
+
+  private def justSolveIt(game: Seq[Seq[SmartSquare]]): Int = {
+    drawGame(game)
+
+    def createBackup(): Seq[Seq[SortedSet[Int]]] =
+      game.map(_.map(_.allNumbers))
+
+    def createSmartSquaresToTry(): List[(SmartSquare, List[Int])] =
+      game
+        .flatMap(_.filter(_.number.isEmpty))
+        .toList
+        .map(smart => (smart, smart.allNumbers.toList))
+
+    def reloadBackup(backup: Seq[Seq[SortedSet[Int]]]): Unit =
+      game.zip(backup).foreach { case (line, backupLine) =>
+        line.zip(backupLine).foreach { case (square, backupValue) =>
+          square.backupSet(backupValue)
+        }
+      }
+
+    @tailrec
+    def loop(
+        allSmartSquares: List[(SmartSquare, List[Int])],
+        backup: Seq[Seq[SortedSet[Int]]],
+        tries: Int
+    ): Int =
+      allSmartSquares match {
+        case Nil =>
+          println("Can't solve it :(")
+          0
+        case (_, Nil) :: next =>
+          loop(next, backup, tries)
+        case (smartSquare, number :: nextNumbers) :: next =>
+          val result =
+            Try {
+              smartSquare.setNumber(number)
+            }
+          result match {
+            case Success(_) =>
+              val result = game.head.take(3).flatMap(_.number)
+              if (result.sizeIs == 3) {
+                println(s"Solved it in $tries tries!")
+                drawGame(game)
+                result.mkString.toInt
+              } else {
+                reloadBackup(backup)
+                loop((smartSquare, nextNumbers) :: next, backup, tries + 1)
+              }
+            case Failure(_) =>
+              reloadBackup(backup)
+              smartSquare.removeNumber(number)
+
+              val result = game.head.take(3).flatMap(_.number)
+              if (result.sizeIs == 3) {
+                println(s"Solved it in $tries tries!")
+                drawGame(game)
+                result.mkString.toInt
+              } else
+                loop(createSmartSquaresToTry(), createBackup(), tries + 1)
+          }
+      }
+
+    loop(
+      createSmartSquaresToTry(),
+      createBackup(),
+      tries = 1
+    )
+  }
 
   def calc: Long = {
     val data: List[String] = readData("p096_sudoku.txt").split("\n").toList
     val games: List[List[String]] = data.grouped(10).toList
 
     val gameResults: List[Int] =
-      games.zipWithIndex.drop(6).map { case (gameStrList, gameIndex) =>
-        println(s" >>> Game ${gameIndex + 1} <<<")
-        println()
-
+      games.zipWithIndex.map { case (gameStrList, gameIndex) =>
         val gameRaw: Seq[Seq[Int]] =
           gameStrList.drop(1).toVector.map(_.toCharArray.map(_.toInt - '0').toVector)
 
@@ -186,24 +328,28 @@ object Prob096 extends UtilResult {
         columns.foreach(column => column.foreach(_.setColumn(column)))
         boxes.foreach(box => box.foreach(_.setBox(box)))
 
-        drawGame(game)
-
         addGroupRules(game)
         addGroupRules(columns)
         addGroupRules(boxes)
+        addBoxRules(game)
 
         initialUpdate(game)
-
-        drawGame(game)
 
         val result = game.head.take(3).flatMap(_.number)
         if (result.sizeIs == 3)
           result.mkString.toInt
-        else
-          ???
+        else {
+          println(s" >>> Game ${gameIndex + 1} <<<")
+          println()
+          justSolveIt(game)
+        }
       }
 
+    println(s"${gameResults.count(_ == 0)} puzzles left to solve!")
+
     gameResults.sum
+
+    // anwser: 24702
   }
 
 }
