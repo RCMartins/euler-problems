@@ -22,4 +22,20 @@ trait EulerTestingSuite extends AnyWordSpec with Matchers {
       }
   }
 
+  def testProblemDecimal(
+      problemNumber: Int,
+      expected: BigDecimal,
+      ignored: Boolean = false
+  ): Unit = {
+    val testName = "Problem %03d should return %s".format(problemNumber, expected.toString)
+    if (ignored)
+      testName ignore ()
+    else
+      testName in {
+        val (result, time) = problems(problemNumber).calcWithTime
+        println(s"time: $time")
+        assert(result == expected)
+      }
+  }
+
 }

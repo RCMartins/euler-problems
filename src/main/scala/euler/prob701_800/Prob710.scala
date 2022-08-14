@@ -2,50 +2,57 @@ package euler.prob701_800
 
 import euler.traits.UtilResult
 
-/**
-  * Created by Ricardo
+/** Created by Ricardo
   */
 object Prob710 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
+    val target = 20
+    val mod = 1000000
+    val max = 1000
+    val mem = Array.fill[Int](max, max)(-1)
 
-    def calcSeqs(target: Int): Seq[Seq[Int]] = {
+    for (k <- 1 until max)
+      mem(k)(k) = 1
 
-      def loop(total: Int, seq: Seq[Int]): Seq[Seq[Int]] = {
-        if (total == target)
-          Seq(seq)
-        else
-          (1 to target - total).flatMap { n =>
-            loop(total + n, seq :+ n)
-          }
+    for (k <- 1 until max) {
+      mem(0)(k) = 0
+      mem(k)(0) = 0
+    }
+
+    mem(0)(0) = 1
+
+    def f(n: Int, size: Int): Int =
+      if (size <= 0)
+        0
+      else {
+        val v = mem(n)(size)
+        if (v != -1)
+          v
+        else {
+          val newV: Int =
+            (1 to n).map(v => mem(n - v)(size - 1)).foldLeft(0)((acc, v) => (acc + v) % mod)
+          mem(n)(size) = newV
+          newV
+        }
       }
 
-      loop(0, Seq.empty)
-    }
+    def pf(n: Int, size: Int): Int =
+      f(n, size).tap { v =>
+        println(s"f($n, $size) = $v")
+      }
 
-//    println(calcSeqs(1).mkString("\n"))
-//    println
-//    println(calcSeqs(2).mkString("\n"))
-//    println
-//    println(calcSeqs(3).mkString("\n"))
-//    println
-//    println(calcSeqs(4).mkString("\n"))
-//    println
-//    println(calcSeqs(5).mkString("\n"))
+    pf(1, 1)
+    pf(2, 1)
+    pf(2, 2)
+    pf(3, 1)
+    pf(3, 2)
+    pf(3, 3)
 
-    for (i <- 2 to 18) {
-      println(
-        List(
-          f"$i%2d:",
-          f"${calcSeqs(i).size}%6d",
-          f"${calcSeqs(i).count(_.contains(2))}%6d",
-          f"${calcSeqs(i).size - calcSeqs(i).count(_.contains(2))}%6d",
-          f"${calcSeqs(i).count(_.contains(2)) - calcSeqs(i - 1).count(_.contains(2)) * 2}%6d",
-          f"${calcSeqs(i - 2).size - calcSeqs(i).count(_.contains(2))}%6d"
-        ).mkString("  ")
-      )
-    }
+    def t(n: Int): Int =
+      ???
 
-    0
+    t(target)
   }
+
 }
