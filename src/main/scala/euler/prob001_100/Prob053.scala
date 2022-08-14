@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob053 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def factorial(n: Int) = (2 to n).foldLeft(BigInt(1))((b, v) => b * v)
 
     def comb(n: Int, r: Int): BigInt = factorial(n) / (factorial(r) * factorial(n - r))

@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 /** Created by Ricardo
   */
 object Prob700 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val base = 1504170715041707L
     val mod = 4503599627370517L
 

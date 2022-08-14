@@ -11,7 +11,7 @@ object Prob012 extends UtilResult {
     LazyList.cons(v, triNumber(v, n + 1))
   }
 
-  def calc: Long = {
+  override def calc: Long = {
     val allTriang = triNumber(0, 1)
 
     var maxDivs = 0

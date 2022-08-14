@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob055 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def testLychrel(n: BigInt, triesLeft: Int): Boolean = {
       if (triesLeft == 0)
         false

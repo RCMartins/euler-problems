@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob027 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     // n^2 + an + b
 
     // inferred: b has to be positive ?

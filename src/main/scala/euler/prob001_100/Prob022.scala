@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob022 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val data = readData("p022_names.txt").replace("\"", "").split(',').toList
 
     data.sorted.zipWithIndex.foldLeft(0L)(

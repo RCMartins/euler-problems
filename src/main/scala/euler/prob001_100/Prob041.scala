@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob041 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val v = for {
       maxN <- 1 to 9
       list = (1 to maxN).permutations.toList

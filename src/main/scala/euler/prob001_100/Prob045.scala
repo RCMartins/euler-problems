@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob045 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def intersectStream(a: LazyList[Long], b: LazyList[Long]): LazyList[Long] = {
       (a, b) match {
         case (x #:: xs, y #:: ys) =>

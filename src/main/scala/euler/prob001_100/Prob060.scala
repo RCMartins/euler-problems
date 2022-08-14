@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob060 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     @inline def join(l1: Long, l2: Long) = (l1.toString + l2.toString).toLong
 
     def testAllCombPrimes(list: List[Long]): Boolean = {

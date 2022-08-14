@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   */
 object Prob493 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val totalBalls = 20
     val totalColors = 7
     val totalBallsByColor = 10

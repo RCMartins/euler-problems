@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   */
 object Prob719 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val target = BigInt(10).pow(12).toLong
 
     val nList: List[(Int, Long)] =

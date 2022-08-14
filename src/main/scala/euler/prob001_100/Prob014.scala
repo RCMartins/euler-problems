@@ -8,7 +8,7 @@ import scala.collection.mutable
   * Created by Ricardo
   */
 object Prob014 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val memory = new mutable.HashMap[Long, Int]()
 
     def f(n: Long, counter: Int): Int = {

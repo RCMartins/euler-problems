@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   */
 object Prob788 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val targetN = 2022
 
     val module = 1000000007

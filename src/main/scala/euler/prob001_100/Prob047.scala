@@ -8,7 +8,7 @@ import scala.annotation.tailrec
   */
 object Prob047 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     def myFactors(n: Long): Set[Long] =
       factors(n).map(pair => math.pow(pair._1, pair._2).toLong).toSet
 

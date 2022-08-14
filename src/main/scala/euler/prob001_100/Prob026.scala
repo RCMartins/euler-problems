@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob026 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val tries: Int = 4
 
     def testSize(numberStr: Vector[Char]): Int = {
