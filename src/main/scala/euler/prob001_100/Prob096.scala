@@ -300,7 +300,7 @@ object Prob096 extends UtilResult {
     )
   }
 
-  def calc: Long = {
+  override def calc: Long = {
     val data: List[String] = readData("p096_sudoku.txt").split("\n").toList
     val games: List[List[String]] = data.grouped(10).toList
 

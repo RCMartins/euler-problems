@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob051 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val v = for {
       prime <- ALL_PRIMES.drop(4)
       primeStr = prime.toString

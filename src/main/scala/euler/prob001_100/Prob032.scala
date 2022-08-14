@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob032 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val isPandigital = (1 to 9).permutations.map(_.mkString).toSet
 
     def isPandigitalProduct(number: Int): Boolean = {

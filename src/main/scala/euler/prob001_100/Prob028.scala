@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob028 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val DX = Vector(0, 1, 0, -1)
     val DY = Vector(-1, 0, 1, 0)
 

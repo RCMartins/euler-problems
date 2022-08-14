@@ -8,7 +8,7 @@ import scala.collection.mutable
   */
 object Prob345 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
 
     val data: Vector[Vector[Int]] =
       """  7  53 183 439 863 497 383 563  79 973 287  63 343 169 583

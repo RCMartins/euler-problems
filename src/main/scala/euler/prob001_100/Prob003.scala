@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob003 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val NUMBER = 600851475143L
     val sqrtNum = BigInt(NUMBER).sqrt().toLong
 

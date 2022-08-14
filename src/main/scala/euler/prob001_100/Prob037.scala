@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 /** Created by Ricardo
   */
 object Prob037 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     var all = List(2L, 3L, 5L, 7L)
     all = all.flatMap(a => all.map(b => a * 10 + b))
     var total = Set[Long]()

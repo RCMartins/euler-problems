@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob057 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val eDiv = LazyList.continually(2)
 
     def streamSeqE(n: Int): LazyList[(BigInt, BigInt)] = {

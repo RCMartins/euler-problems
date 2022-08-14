@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob054 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def toValue(c: Char): Int = c match {
       case 'J' => 11
       case 'Q' => 12

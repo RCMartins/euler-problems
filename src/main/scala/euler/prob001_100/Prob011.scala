@@ -24,7 +24,7 @@ object Prob011 extends UtilResult {
     sumOf4Aux(pos, 4)
   }
 
-  def calc: Long = {
+  override def calc: Long = {
     val data: Array[Array[Int]] =
       readData("p011_data.txt").split('\n').map(_.split(' ').map(_.toInt))
 
