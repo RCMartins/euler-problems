@@ -16,7 +16,8 @@ class prob051_100Test extends EulerTestingSuite {
       (index + 51, prob)
     }.toMap ++
       Map(
-        96 -> Prob096
+        72 -> Prob072,
+        96 -> Prob096,
       )
   }
 
@@ -31,5 +32,6 @@ class prob051_100Test extends EulerTestingSuite {
   testProblem(59, 129448L)
   testProblem(60, 26033L, ignored = true)
 
+  testProblem(72, 303963552391L, ignored = true)
   testProblem(96, 24702L)
 }
