@@ -9,15 +9,20 @@ import scala.annotation.tailrec
 object Prob745 extends UtilResult {
 
   override def calc: Long = {
-    val target = BigInt(10).pow(12)
+    val target = BigInt(10).pow(14)
 
     val perfect: LazyList[(Int, Long)] =
       LazyList.from(1).map(n => (n, n.toLong * n)).takeWhile(_._2 <= target).tail
+//
+//    val fac: LazyList[(Long, List[(Long, Int)])] =
+//      perfect.map { case (n, sq) => sq -> factors(n).map { case (prime, k) => prime -> k * 2 } }
+//
+//    println(fac.mkString("\n"))
 
-    val fac: LazyList[(Long, List[(Long, Int)])] =
-      perfect.map { case (n, sq) => sq -> factors(n).map { case (prime, k) => prime -> k * 2 } }
+//    println(ALL_PRIMES.takeWhile(_ < target).size)
 
-    println(fac.mkString("\n"))
+    println(perfect.size)
+//    println(perfect.mkString("\n"))
 
     0
   }

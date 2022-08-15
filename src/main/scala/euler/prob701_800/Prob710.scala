@@ -2,6 +2,8 @@ package euler.prob701_800
 
 import euler.traits.UtilResult
 
+import scala.util.chaining.scalaUtilChainingOps
+
 /** Created by Ricardo
   */
 object Prob710 extends UtilResult {

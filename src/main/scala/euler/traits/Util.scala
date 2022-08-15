@@ -142,22 +142,20 @@ trait Util {
     val allFactors = factors(n).flatMap { case (prime, times) =>
       List.fill(times)(prime)
     }
-    val allUniqueDivisors = allFactors
+    allFactors
       .foldLeft(List(1L))((list, prime) => list.flatMap(elem => List(elem, elem * prime)))
       .distinct
       .sorted
-    allUniqueDivisors
   }
 
   def uniqueFactors(n: BigInt): List[Long] = {
     val allFactors = factors(n).flatMap { case (prime, times) =>
       List.fill(times)(prime)
     }
-    val allUniqueDivisors = allFactors
+    allFactors
       .foldLeft(List(1L))((list, prime) => list.flatMap(elem => List(elem, elem * prime)))
       .distinct
       .sorted
-    allUniqueDivisors
   }
 
   private def fib(a: Int, b: Int): LazyList[Int] = {
