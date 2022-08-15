@@ -47,15 +47,16 @@ object Prob072 extends UtilResult {
 
     smartNum += ((List(2), LazyList.from(1, 2)))
 
-    def getStarmNum(list: List[Int]): LazyList[Int] =
+    def getSmartNum(list: List[Int]): LazyList[Int] =
       smartNum
         .getOrElseUpdate(
           list, {
             list match {
               case List(prime) =>
+                println(prime)
                 LazyList.from(1).filter(_ % prime != 0)
               case headPrime :: others =>
-                getStarmNum(others).filter(_ % headPrime != 0)
+                getSmartNum(others).filter(_ % headPrime != 0)
               case _ =>
                 ???
             }
@@ -67,10 +68,10 @@ object Prob072 extends UtilResult {
         comp
           .map { n =>
             val allFactors: List[Int] = factors(n).map(_._1.toInt).reverse
-            if (n % 10000 == 0)
-              println(n)
-
-//            var counter = 0
+            if (n % 1000 == 0) {
+              println(allFactors)
+              println(f"$n   ${n.toLong * n * 100.0 / (target.toLong * target)}%5.2f%%")
+            }
 
             @tailrec
             def countElems(list: LazyList[Int], counter: Int): Int = {
@@ -79,7 +80,7 @@ object Prob072 extends UtilResult {
                 case _ #:: others           => countElems(others, counter + 1)
               }
             }
-            countElems(getStarmNum(allFactors), 0)
+            countElems(getSmartNum(allFactors), 0)
 //            getStarmNum(allFactors).takeWhile(_ <= n).size
 //            (1 to n).count(v => !allFactors.exists(v % _ == 0))
           }
