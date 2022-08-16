@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob015 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val field: Array[Array[Long]] = Array.ofDim(21, 21)
 
     (0 to 20).foreach(x => {

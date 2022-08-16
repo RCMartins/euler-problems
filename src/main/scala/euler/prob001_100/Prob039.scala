@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob039 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val v = for {
       p <- 3 to 1000
       a <- 1 to p

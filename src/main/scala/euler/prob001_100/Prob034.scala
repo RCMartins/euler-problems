@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob034 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val expDigit = 1 +: (1 to 9).map(n => (1 to n).product).toVector
 
     class NumberElement(val number: BigInt, val sumOfFact: BigInt) extends Ordered[NumberElement] {

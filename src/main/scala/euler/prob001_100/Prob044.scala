@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob044 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def pentagonStream(n: Long): LazyList[Long] =
       LazyList.cons(n * (3 * n - 1) / 2, pentagonStream(n + 1))
 

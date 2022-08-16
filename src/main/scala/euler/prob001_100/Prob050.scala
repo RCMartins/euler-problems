@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob050 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val MAX = 1000000
 
     val primes = ALL_PRIMES.takeWhile(_ < MAX).map(_.toInt).toList

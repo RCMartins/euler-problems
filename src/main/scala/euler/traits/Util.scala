@@ -369,7 +369,7 @@ trait Util {
     if (n < 0)
       false
     else {
-      val tst: Long = (Math.sqrt(n) + 0.5).toLong
+      val tst: Long = (Math.sqrt(n.toDouble) + 0.5).toLong
       tst * tst == n
     }
   }

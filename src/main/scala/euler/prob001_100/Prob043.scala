@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob043 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val v = for {
       n1 <- 0 to 9
       n2 <- 0 to 9

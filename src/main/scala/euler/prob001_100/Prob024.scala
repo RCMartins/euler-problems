@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   */
 object Prob024 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val list = LazyList.from((0 to 9).permutations).map(_.mkString)
     list(999999).toLong
   }

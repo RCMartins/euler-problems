@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob019 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val sizes = Vector(0, 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
 
     var day = 0

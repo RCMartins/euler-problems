@@ -8,7 +8,7 @@ import scala.collection.mutable
   */
 object Prob108 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     LazyList
       .from(1000)
       .find { n =>

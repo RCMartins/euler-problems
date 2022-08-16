@@ -8,7 +8,7 @@ import scala.collection.mutable
   */
 object Prob500 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val target = 500500
     val module = 500500507L
 

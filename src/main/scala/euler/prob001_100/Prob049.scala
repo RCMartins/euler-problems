@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob049 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val primes = ALL_PRIMES.filter(_ >= 1000).takeWhile(_ <= 9999)
     val primesSet = primes.toSet
 

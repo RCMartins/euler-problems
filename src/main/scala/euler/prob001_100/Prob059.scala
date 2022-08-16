@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob059 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val codes = readData("p059_cipher.txt").split(",").map(_.toInt).toVector
 
     println(codes.groupBy(x => x).toList.sortBy(-_._2.length))

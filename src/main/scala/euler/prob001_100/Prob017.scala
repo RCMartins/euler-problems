@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob017 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val n1_19 = Vector(
       "",
       "one",

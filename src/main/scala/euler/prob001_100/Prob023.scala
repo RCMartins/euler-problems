@@ -7,7 +7,7 @@ import scala.annotation.tailrec
 /** Created by Ricardo
   */
 object Prob023 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val MAX = 28123
 
     def calcSums(a: Int, bs: List[Int]): List[Int] = {

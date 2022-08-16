@@ -2,15 +2,17 @@ package euler.traits
 
 trait UtilResult extends Util {
 
-  def calc: Long
+  def calc: Long = 0L
+
+  def calcBigDecimal: BigDecimal = BigDecimal(0)
 
   def main(args: Array[String]): Unit = {
-    time(calc)
+    time(Some(calc).filter(_ != 0L).getOrElse(calcBigDecimal))
   }
 
-  def calcWithTime: (Long, Long) = {
+  def calcWithTime: (Any, Long) = {
     val t = System.currentTimeMillis()
-    val res = calc
+    val res: Any = Some(calc).filter(_ != 0L).getOrElse(calcBigDecimal)
     val totalTime = System.currentTimeMillis() - t
     (res, totalTime)
   }

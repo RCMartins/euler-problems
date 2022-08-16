@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob008 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val data = readData("p008_data.txt").filter(_.isDigit)
     val SeqSize: Int = 13
 

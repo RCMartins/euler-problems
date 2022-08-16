@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   */
 object Prob040 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     def champernowne(n: Int): LazyList[Int] =
       LazyList.from(n.toString.map(_ - '0')) #::: champernowne(n + 1)
 

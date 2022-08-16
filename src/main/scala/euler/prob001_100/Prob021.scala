@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob021 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val vector: Vector[(Long, Int)] =
       (1 to 10000).map(uniqueFactors(_).init.sum).toVector.zip(1 to 10000)
 
