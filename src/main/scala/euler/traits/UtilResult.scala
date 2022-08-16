@@ -12,7 +12,7 @@ trait UtilResult extends Util {
 
   def calcWithTime: (Any, Long) = {
     val t = System.currentTimeMillis()
-    val res = Some(calc).filter(_ != 0L).getOrElse(calcBigDecimal)
+    val res: Any = Some(calc).filter(_ != 0L).getOrElse(calcBigDecimal)
     val totalTime = System.currentTimeMillis() - t
     (res, totalTime)
   }

@@ -25,7 +25,7 @@ object Prob072 extends UtilResult {
     all.size
   }
 
-  def calc: Long = {
+  override def calc: Long = {
     val target = 1000000
 
     val comp = ALL_COMPOSITE.takeWhile(_ <= target).map(_.toInt).toList
