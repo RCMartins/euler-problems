@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob094 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
 //    val file = Source.fromFile("data/p098_words.txt").getLines.mkString
 //    val words =
 //      file.split(",").map(_.tail.init)

@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob065 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def streamE(n: Int): LazyList[Int] = 1 #:: n #:: 1 #:: streamE(n + 2)
     val eDiv = streamE(2)
 

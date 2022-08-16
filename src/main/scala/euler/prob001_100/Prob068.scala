@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob068 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val gon5: IndexedSeq[List[Int]] =
       IndexedSeq(
         List(0, 1, 2),

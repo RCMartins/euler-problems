@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob100 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     //    val SQRT_DIG = BigDecimal(150)
     //    val SQRT_PRE = BigDecimal(10).pow(SQRT_DIG.intValue())
     //

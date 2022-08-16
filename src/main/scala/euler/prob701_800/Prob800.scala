@@ -11,7 +11,7 @@ import scala.util.chaining.scalaUtilChainingOps
   */
 object Prob800 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
 
     // C(800) = 2
     // C(800^800) = 10790
@@ -163,7 +163,7 @@ object Prob800 extends UtilResult {
 //  */
 //object Prob800 extends UtilResult {
 //
-//  def calc: Long = {
+//  override def calc: Long = {
 //
 //    // C(800) = 2
 //    // C(800^800) = 10790

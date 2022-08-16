@@ -8,7 +8,7 @@ import scala.collection.mutable
   * Created by Ricardo
   */
 object Prob095 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val MAX = 1e6.toInt
     println(MAX)
 

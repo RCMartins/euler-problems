@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob081 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val SIZE = 80
 
     val arr = readData("p081_matrix.txt").split("\n").map(_.split(",").map(_.toInt).toArray)

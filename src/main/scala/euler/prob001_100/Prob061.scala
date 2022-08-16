@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob061 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val p3 = LazyList.from(1).map(n => n * (n + 1) / 2)
     val p4 = LazyList.from(1).map(n => n * n)
     val p5 = LazyList.from(1).map(n => n * (3 * n - 1) / 2)

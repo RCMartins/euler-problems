@@ -8,7 +8,7 @@ import scala.util.chaining.scalaUtilChainingOps
   */
 object Prob429 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
 
     // S(2!)  = 5              1, 2
     // S(3!)  = 50             1, 2,  3,  6

@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob082 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val SIZE = 80
 
     val arr = Array.ofDim[Int](SIZE, SIZE)

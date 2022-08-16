@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob076 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val MaxMoney = 100
 
     val data: Array[Array[Long]] = Array.ofDim(MaxMoney + 1, MaxMoney)

@@ -50,7 +50,7 @@ object Prob709 extends UtilResult {
     arr(Max).sum
   }
 
-  def calc: Long = {
+  override def calc: Long = {
 
     val Mod = 1020202009
 //    val Max = 24680

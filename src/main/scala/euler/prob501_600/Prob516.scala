@@ -22,7 +22,7 @@ object Prob516 extends UtilResult {
   println(v2.sum)
    */
 
-  def calc: Long = {
+  override def calc: Long = {
     val target = Math.pow(10, 12).toLong
 
     def powers(n: Int): IndexedSeq[Long] =

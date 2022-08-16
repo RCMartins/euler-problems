@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob092 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val MAX = 1e7.toInt
 
     val SQUARES = (0 to 9).map(n => n * n).toVector

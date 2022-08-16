@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob080 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
 //    val precision = new MathContext(102)
 //
 //    val v = for {

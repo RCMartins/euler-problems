@@ -8,7 +8,7 @@ import scala.collection.mutable
   */
 object Prob628 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val target = Math.pow(10, 8).toInt
 
     // f(3)  =       2

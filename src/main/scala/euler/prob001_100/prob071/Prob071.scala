@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob071 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val div3_7: Double = 3.0 / 7.0
     println(div3_7)
 

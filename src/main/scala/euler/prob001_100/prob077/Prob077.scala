@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob077 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val coins = ALL_PRIMES.take(200).map(_.toInt).toVector
     val length = coins.length
     val initialMoney = 100

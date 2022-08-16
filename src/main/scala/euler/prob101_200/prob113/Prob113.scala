@@ -7,7 +7,7 @@ import euler.traits.UtilResult
   */
 object Prob113 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val maxDigits = 100
 
     def equal: Int = 9 * maxDigits

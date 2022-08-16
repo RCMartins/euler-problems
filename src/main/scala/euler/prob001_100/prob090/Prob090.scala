@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob090 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val input = List((0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1))
 
     def allCombs(in: List[(Int, Int)]): List[(Set[Int], Set[Int])] = in match {

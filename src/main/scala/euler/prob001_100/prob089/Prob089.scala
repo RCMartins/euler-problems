@@ -8,7 +8,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob089 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val ALL_RULES = List(
       ("XC", 90),
       ("XL", 40),

@@ -5,7 +5,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob069 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val MAX = 1000000
 
     val all: Array[Set[Int]] =

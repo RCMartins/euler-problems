@@ -13,7 +13,7 @@ object Prob90b extends UtilResult {
       pair(elem)
   }
 
-  def calc: Long = {
+  override def calc: Long = {
     time {
       val input = List((0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1))
 

@@ -8,7 +8,7 @@ import scala.annotation.tailrec
   */
 object Prob098 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
     val wordsList = readData("p098_words.txt").split(",").map(_.drop(1).dropRight(1)).toList
 
     val wordPairs: List[(String, List[String])] =

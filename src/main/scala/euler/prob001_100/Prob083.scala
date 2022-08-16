@@ -9,7 +9,7 @@ import scala.collection.mutable
   * Created by Ricardo
   */
 object Prob083 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val SIZE = 80
 //    val (up, right, down, left) = (0, 1, 2, 3)
     val DX = Vector(0, 1, 0, -1)

@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   */
 object Prob407 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
 
     def bruteForce(n: Int): Long = {
       (n - 1 to 1 by -1)

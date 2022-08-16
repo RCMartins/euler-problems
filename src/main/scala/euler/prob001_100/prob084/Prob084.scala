@@ -34,7 +34,7 @@ object Prob084 extends UtilResult {
 
   val DiceSize = 4
 
-  def calc: Long = {
+  override def calc: Long = {
     val turns = 25000000
     val sim = simulate(Turn(0, 0, Vector.fill(40)(0)), turns)
     println(sim)

@@ -7,7 +7,7 @@ import euler.traits.UtilResult
   */
 object Prob706 extends UtilResult {
 
-  def calc: Long = {
+  override def calc: Long = {
 
     var count = 0
     for (k <- 10 to 99) {

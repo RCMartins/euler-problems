@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob067 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val data = readData("p067_triangle.txt").split("\n")
         .map(_.split(" ").map(_.toInt))
 

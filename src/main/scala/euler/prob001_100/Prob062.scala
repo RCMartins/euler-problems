@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob062 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val hash = collection.mutable.HashMap[String, (Int, Int)]()
 
     NATURALS.takeWhile(_ < 50000).map(n => (n, BigInt(n).pow(3))).foreach {

@@ -7,7 +7,7 @@ import euler.traits.UtilResult
 /** Created by Ricardo
   */
 object Prob099 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val inputStream: InputStream = new FileInputStream("data\\p099_base_exp.txt")
     val br = new BufferedReader(new InputStreamReader(inputStream))
 

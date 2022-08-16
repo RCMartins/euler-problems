@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob074 extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     val fact = (1 to 9).scanLeft(1)(_ * _)
 
     println(fact)

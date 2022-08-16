@@ -6,7 +6,7 @@ import euler.traits.UtilResult
   * Created by Ricardo
   */
 object Prob93b extends UtilResult {
-  def calc: Long = {
+  override def calc: Long = {
     def num4(n1: Int, n2: Int, n3: Int, n4: Int): List[Int] = {
       List(
         num3(n1, n2, n3).flatMap(num2(n4, _)),
