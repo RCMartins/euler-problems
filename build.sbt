@@ -25,14 +25,14 @@ scalacOptions := Seq(
 
 libraryDependencies ++=
   Seq(
-    "com.github.pathikrit" %% "better-files" % "3.9.1",
-    "org.scalactic" %% "scalactic" % "3.2.12",
-    "org.scalatest" %% "scalatest" % "3.2.12" % Test,
-//"org.spire-math" %% "spire" % "0.17.0-M1"
+    "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4",
+    "com.github.pathikrit"   %% "better-files"               % "3.9.1",
+    "org.scalactic"          %% "scalactic"                  % "3.2.12",
+    "org.scalatest"          %% "scalatest"                  % "3.2.12" % Test,
+    // "org.spire-math" %% "spire" % "0.17.0-M1"
   )
 
-parallelExecution in Test := false
-
-logBuffered in Test := false
+Test / parallelExecution := false
+Test / logBuffered := false
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
