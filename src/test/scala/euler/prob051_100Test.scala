@@ -19,7 +19,8 @@ class prob051_100Test extends EulerTestingSuite {
         65 -> Prob065,
         67 -> Prob067,
         68 -> Prob068,
-        96 -> Prob096
+        96 -> Prob096,
+        98 -> Prob098,
       )
   }
 
@@ -42,4 +43,5 @@ class prob051_100Test extends EulerTestingSuite {
   testProblem(68, 6531031914842725L)
 
   testProblem(96, 24702L)
+  testProblem(98, 18769L)
 }

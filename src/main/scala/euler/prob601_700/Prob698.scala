@@ -33,9 +33,11 @@ object Prob698 extends UtilResult {
     lazy val result = "1" #:: "2" #:: "3" #:: next123(2)
 
     def next123(length: Int): LazyList[String] = {
-      def loop(c1: Int, c2: Int, c3: Int): LazyList[String] = {}
+      def loop(c1: Int, c2: Int, c3: Int): LazyList[String] = {
+        ???
+      }
 
-      loop()
+    ???
     }
 
     result
