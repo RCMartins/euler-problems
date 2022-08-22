@@ -60,8 +60,12 @@ object Prob743 extends UtilResult {
 
   override def calc: Long = {
     // A(3,3) = 20
+    // A(4,6) = 1060870
 
-    println(bruteForce(k = 3, n = 3))
+//    println(bruteForce(k = 3, n = 3))
+
+    val k = 3
+    val n = 9
 
     0
   }
